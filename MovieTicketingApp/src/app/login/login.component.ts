@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from '../services/local-storage.service';
+import { UserLoginResponse } from '../interfaces/user';
 
 @Component({
 	selector: 'app-login',
@@ -17,32 +19,23 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	constructor(private fb: FormBuilder,
 		private userService: UserService,
-		private router: Router) { }
+		private router: Router,
+		private localStorageService: LocalStorageService) { }
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
 
-			username: new FormControl('', {
-				updateOn: 'blur',
-				validators: [
-					Validators.required,
-					Validators.pattern(/^[A-Za-z][A-Za-z_0-9]{7,30}$/g)
-				]
-			}),
+			username: new FormControl('', { updateOn: 'blur' }),
 
-			password: new FormControl('', {
-				validators: [
-					Validators.required,
-					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/g)
-				]
-			})
+			password: new FormControl('')
 		});
 	}
 
 	login() {
 		this.subscription = this.userService.login(this.loginForm.getRawValue()).subscribe({
 			next: data => {
-				console.log(data);
+				const res = data as UserLoginResponse;
+				this.localStorageService.set("AcessToken", res?.AccessToken);
 				this.router.navigate(['/home']);
 				this.loginForm.reset();
 			},
