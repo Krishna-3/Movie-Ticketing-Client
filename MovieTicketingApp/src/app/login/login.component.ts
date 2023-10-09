@@ -24,10 +24,9 @@ export class LoginComponent {
       }),
 
       password: new FormControl('', {
-        updateOn: 'blur',
         validators: [
           Validators.required,
-          Validators.minLength(7)
+          Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/g)
         ]
       })
     });
