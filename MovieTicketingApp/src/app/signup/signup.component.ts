@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
+import { CustomValidator } from '../validators/customValidator';
 
 @Component({
 	selector: 'app-signup',
@@ -38,10 +39,18 @@ export class SignupComponent implements OnInit, OnDestroy {
 				]
 			}),
 
+			confirmPassword: new FormControl('', {
+				updateOn: 'blur',
+				validators: [
+					Validators.required,
+					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/g)
+				]
+			}),
+
 			email: new FormControl('', {
 				validators: [Validators.required, Validators.email]
 			})
-		});
+		}, { validators: [CustomValidator.validatePasswords] } as AbstractControlOptions);
 	}
 
 	signup() {
