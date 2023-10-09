@@ -7,12 +7,16 @@ import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    HomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
