@@ -12,12 +12,16 @@ export interface UserLoginRequest {
 }
 
 export interface UserLoginResponse {
-    refreshToken: String,
-    accessToken: string,
-    user: {
-        id: number,
-        username: string,
-        email: string,
-        role: string
-    }
+    RefreshToken: String,
+    AccessToken: string,
+}
+export interface User {
+    Id: string,
+    Name: string,
+    Email: string,
+    Role: string,
+    nbf: string,
+    exp: string,
+    iss: string,
+    aud: string
 }
