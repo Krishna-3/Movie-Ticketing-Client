@@ -1,16 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-signup',
 	templateUrl: './signup.component.html',
 	styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
-	signupForm!: FormGroup
+	signupForm!: FormGroup;
 
-	constructor(private fb: FormBuilder) { }
+	subscription!: Subscription;
+
+	constructor(private fb: FormBuilder,
+		private userService: UserService,
+		private router: Router) { }
 
 	ngOnInit(): void {
 		this.signupForm = this.fb.group({
@@ -38,6 +45,20 @@ export class SignupComponent implements OnInit {
 	}
 
 	signup() {
-		console.log(this.signupForm.getRawValue());
+		this.subscription = this.userService.signup(this.signupForm.getRawValue()).subscribe({
+			next: data => {
+				console.log(data);
+				this.router.navigate(['/login']);
+				this.signupForm.reset();
+			},
+			error: err =>
+				console.log(err)
+		});
+	}
+
+	ngOnDestroy(): void {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
 	}
 }
