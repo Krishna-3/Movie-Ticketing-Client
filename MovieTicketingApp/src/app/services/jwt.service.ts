@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode';
 import { User, UserLoginResponse } from '../interfaces/user';
 import { LocalStorageService } from './local-storage.service';
 import { UserService } from './user.service';
-import { catchError, tap } from 'rxjs';
+import { Observable, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -15,13 +15,13 @@ export class JwtService {
 		private userService: UserService,
 		private router: Router) { }
 
-	getDecodeToken(token: string) {
+	getDecodeToken(token: string): User {
 		return jwt_decode(token);
 	}
 
 	getUser(token: string) {
 		const decodedToken = jwt_decode(token) as User;
-		return decodedToken ? decodedToken?.Name : null;
+		return decodedToken ? decodedToken.Name : null;
 	}
 
 	getEmailId(token: string) {
@@ -49,8 +49,8 @@ export class JwtService {
 		}
 	}
 
-	getNewRefresh(refresh: string) {
-		this.userService.refresh(refresh).pipe(
+	getNewRefresh(refresh: string): Observable<any> {
+		return this.userService.refresh(refresh).pipe(
 			tap(data => {
 				const res = data as UserLoginResponse;
 				this.localStorageService.set('accessToken', res.accessToken)
