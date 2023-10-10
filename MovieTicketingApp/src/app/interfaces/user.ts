@@ -12,8 +12,8 @@ export interface UserLoginRequest {
 }
 
 export interface UserLoginResponse {
-    RefreshToken: String,
-    AccessToken: string,
+    refreshToken: string,
+    accessToken: string,
 }
 export interface User {
     Id: string,
