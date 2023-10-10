@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
-import { User } from '../interfaces/user';
+import { User, UserLoginResponse } from '../interfaces/user';
+import { LocalStorageService } from './local-storage.service';
+import { UserService } from './user.service';
+import { catchError, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class JwtService {
 
-	constructor() { }
+	constructor(private localStorageService: LocalStorageService,
+		private userService: UserService,
+		private router: Router) { }
 
 	getDecodeToken(token: string) {
 		return jwt_decode(token);
@@ -41,5 +47,16 @@ export class JwtService {
 		} else {
 			return false;
 		}
+	}
+
+	getNewRefresh(refresh: string) {
+		this.userService.refresh(refresh).pipe(
+			tap(data => {
+				const res = data as UserLoginResponse;
+				this.localStorageService.set('accessToken', res.accessToken)
+				this.localStorageService.set('refreshToken', res.refreshToken)
+			}),
+			catchError(err => this.router.navigate(['/login']))
+		)
 	}
 }
