@@ -4,7 +4,8 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
-import { UserLoginResponse } from '../interfaces/user';
+import { User, UserLoginResponse } from '../interfaces/user';
+import { JwtService } from '../services/jwt.service';
 
 @Component({
 	selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	constructor(private fb: FormBuilder,
 		private userService: UserService,
 		private router: Router,
-		private localStorageService: LocalStorageService) { }
+		private localStorageService: LocalStorageService,
+		private jwtservice: JwtService) { }
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
