@@ -1,1 +1,7 @@
-<p>home works!</p>
+<form [formGroup]="locationForm">
+    <select formControlName="selectedLocation" (change)="getMovies()">
+        <option value="">---------</option>
+        <option *ngFor="let city of cities" value={{city.city}}>{{city.city}}</option>
+    </select>
+</form>
+{{movies|json}}
