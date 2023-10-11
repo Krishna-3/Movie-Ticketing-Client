@@ -1,1 +1,8 @@
+<form [formGroup]="languageForm">
+    <select formControlName="preferredLanguage" (change)="setLanguage()">
+        <option value="en">English</option>
+        <option value="te">Telugu</option>
+        <option value="hi">Hindi</option>
+    </select>
+</form>
 <router-outlet></router-outlet>
