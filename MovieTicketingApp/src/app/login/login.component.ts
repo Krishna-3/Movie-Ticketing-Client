@@ -4,8 +4,7 @@ import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
-import { User, UserLoginResponse } from '../interfaces/user';
-import { JwtService } from '../services/jwt.service';
+import { UserLoginResponse } from '../interfaces/user';
 
 @Component({
 	selector: 'app-login',
@@ -21,8 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	constructor(private fb: FormBuilder,
 		private userService: UserService,
 		private router: Router,
-		private localStorageService: LocalStorageService,
-		private jwtservice: JwtService) { }
+		private localStorageService: LocalStorageService) { }
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
@@ -37,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.subscription = this.userService.login(this.loginForm.getRawValue()).subscribe({
 			next: data => {
 				const res = data as UserLoginResponse;
-				this.localStorageService.set("AccessToken", res.accessToken);
+				this.localStorageService.set("accessToken", res.accessToken);
 				this.localStorageService.set("refreshToken", res.refreshToken);
 				this.router.navigate(['/home']);
 				this.loginForm.reset();
