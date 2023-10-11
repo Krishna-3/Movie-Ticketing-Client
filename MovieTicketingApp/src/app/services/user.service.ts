@@ -18,10 +18,10 @@ export class UserService {
 	}
 
 	refresh(refreshToken: string) {
-		return this.http.post("https://localhost:7064/Authentication/refresh ", refreshToken);
+		return this.http.post("https://localhost:7064/Authentication/refresh ", { refreshToken: refreshToken });
 	}
 
 	logout(refreshToken: string) {
-		return this.http.post("https://localhost:7064/Authentication/logout", refreshToken);
+		return this.http.post("https://localhost:7064/Authentication/logout", { refreshToken: refreshToken });
 	}
 }
