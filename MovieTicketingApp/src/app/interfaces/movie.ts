@@ -8,7 +8,8 @@ export interface MovieEn {
     titleEn: string,
     descriptionEn: string,
     languageEn: string,
-    rating: number
+    rating: number,
+    type: string
 }
 
 export interface MovieTe {
@@ -16,7 +17,8 @@ export interface MovieTe {
     titleTe: string,
     descriptionTe: string,
     languageTe: string,
-    rating: number
+    rating: number,
+    type: string
 }
 
 export interface MovieHi {
@@ -24,5 +26,14 @@ export interface MovieHi {
     titleHi: string,
     descriptionHi: string,
     languageHi: string,
+    rating: number,
+    type: string
+}
+
+export interface Movie {
+    id: number,
+    title: string,
+    description: string,
+    language: string,
     rating: number
 }
