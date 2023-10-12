@@ -4,4 +4,12 @@
         <option *ngFor="let city of cities" value={{city.city}}>{{city.city}}</option>
     </select>
 </form>
-{{movies|json}}
+
+<main>
+    <ul *ngFor="let movie of movies">
+        <li>{{movie.title}}</li>
+        <li>{{movie.description}}</li>
+        <li>{{movie.language}}</li>
+        <li>{{movie.rating}}</li>
+    </ul>
+</main>
