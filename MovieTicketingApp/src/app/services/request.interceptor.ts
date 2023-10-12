@@ -28,7 +28,7 @@ export class RequestInterceptor implements HttpInterceptor {
 		return next.handle(req).pipe(
 			catchError((error) => {
 				if (token !== null) {
-					if (error.status === 0 && this.jwtService.isTokenExpired(token as string)) {
+					if (error.status === 401 && this.jwtService.isTokenExpired(token as string)) {
 						const refresh = this.localStorageService.get('refreshToken');
 
 						if (refresh !== null) {
