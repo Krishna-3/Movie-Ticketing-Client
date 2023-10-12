@@ -3,7 +3,6 @@ import { Subscription } from 'rxjs';
 import { MovieService } from '../services/movie.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { City, Movie, MovieEn, MovieHi, MovieTe } from '../interfaces/movie';
-import { ParseService } from '../services/parse.service';
 
 @Component({
 	selector: 'app-home',
