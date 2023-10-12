@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieService } from '../services/movie.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { City, MovieEn, MovieHi, MovieTe } from '../interfaces/movie';
+import { City, Movie, MovieEn, MovieHi, MovieTe } from '../interfaces/movie';
+import { ParseService } from '../services/parse.service';
 
 @Component({
 	selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	cities!: City[]
 
-	movies!: MovieEn[] | MovieHi[] | MovieTe[]
+	movies: Movie[] = [];
 
 	constructor(private movieService: MovieService,
 		private fb: FormBuilder) { }
@@ -40,12 +41,45 @@ export class HomeComponent implements OnInit, OnDestroy {
 		const selectedLocation = this.locationForm.get('selectedLocation')?.value;
 		if (selectedLocation !== "") {
 
-
 			this.subscription3 = this.movieService.setLocation(selectedLocation).subscribe({
 				next: data => {
 					this.subscription1 = this.movieService.getMovies().subscribe({
 						next: data => {
-							this.movies = data as MovieEn[] | MovieHi[] | MovieTe[]
+							const res = data;
+
+							if (Array.isArray(res)) {
+								const movieArray: Movie[] = res.map((movieData) => {
+
+									if (movieData.type === "en") {
+										return {
+											id: movieData.id,
+											title: movieData.titleEn,
+											description: movieData.descriptionEn,
+											language: movieData.languageEn,
+											rating: movieData.rating,
+										} as Movie
+									}
+									else if (movieData.type === "te") {
+										return {
+											id: movieData.id,
+											title: movieData.titleTe,
+											description: movieData.descriptionTe,
+											language: movieData.languageTe,
+											rating: movieData.rating,
+										} as Movie
+									}
+									else {
+										return {
+											id: movieData.id,
+											title: movieData.titleHi,
+											description: movieData.descriptionHi,
+											language: movieData.languageHi,
+											rating: movieData.rating,
+										} as Movie
+									}
+								});
+								this.movies = movieArray;
+							}
 						},
 						error: err => console.log(err)
 					})
