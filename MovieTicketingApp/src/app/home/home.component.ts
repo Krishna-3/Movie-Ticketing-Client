@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieService } from '../services/movie.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { City, Movie, MovieEn, MovieHi, MovieTe } from '../interfaces/movie';
+import { City, Movie } from '../interfaces/movie';
 
 @Component({
 	selector: 'app-home',
