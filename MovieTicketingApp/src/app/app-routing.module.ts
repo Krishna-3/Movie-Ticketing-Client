@@ -4,11 +4,15 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { TheatresComponent } from './theatres/theatres.component';
+import { TheatreComponent } from './theatre/theatre.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'movie/:movieId', component: TheatresComponent },
+  { path: 'movie/:movieId/theatre/:theatreId', component: TheatreComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
