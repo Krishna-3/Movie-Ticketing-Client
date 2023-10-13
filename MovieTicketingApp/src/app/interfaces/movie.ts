@@ -9,6 +9,7 @@ export interface MovieEn {
     descriptionEn: string,
     languageEn: string,
     rating: number,
+    photo: string,
     type: string
 }
 
@@ -18,6 +19,7 @@ export interface MovieTe {
     descriptionTe: string,
     languageTe: string,
     rating: number,
+    photo: string,
     type: string
 }
 
@@ -27,6 +29,7 @@ export interface MovieHi {
     descriptionHi: string,
     languageHi: string,
     rating: number,
+    photo: string,
     type: string
 }
 
@@ -35,5 +38,6 @@ export interface Movie {
     title: string,
     description: string,
     language: string,
-    rating: number
+    rating: number,
+    photo: string
 }
