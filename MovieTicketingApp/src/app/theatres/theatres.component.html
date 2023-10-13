@@ -1,0 +1,38 @@
+{{theatres|json}}
+<form [formGroup]="theatreForm">
+    <input type="radio" formControlName="date" value={{dates[0]}}>
+    {{dates[0].slice(0,2)}}
+    <input type="radio" formControlName="date" value={{dates[1]}}>
+    {{dates[1].slice(0,2)}}
+    <input type="radio" formControlName="date" value={{dates[2]}}>
+    {{dates[2].slice(0,2)}}
+    <input type="radio" formControlName="date" value={{dates[3]}}>
+    {{dates[3].slice(0,2)}}
+    <input type="radio" formControlName="date" value={{dates[4]}}>
+    {{dates[4].slice(0,2)}}
+    <input type="radio" formControlName="date" value={{dates[5]}}>
+    {{dates[5].slice(0,2)}}
+    <input type="radio" formControlName="date" value={{dates[6]}}>
+    {{dates[6].slice(0,2)}}
+</form>
+
+<ul *ngFor="let theatre of theatres">
+    <li>{{theatre.name}}</li>
+
+    <li *ngIf="theatreForm.get('date')?.value === dates[0]">
+        <span *ngFor="let t of todayTimings">
+            <a routerLink="theatre/{{theatre.id}}">
+                <button>{{t}}</button>
+            </a>
+        </span>
+    </li>
+
+    <li *ngIf="theatreForm.get('date')?.value !== dates[0]">
+        <span *ngFor="let t of timings">
+            <a routerLink="theatre/{{theatre.id}}">
+                <button>{{t}}</button>
+            </a>
+        </span>
+    </li>
+
+</ul>
