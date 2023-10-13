@@ -3,4 +3,6 @@ export interface Ticket {
     MovieId: number,
     TheatreId: number,
     UserId: number,
+    date: string,
+    timeId: number
 }

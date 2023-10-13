@@ -10,7 +10,9 @@ export class TicketService {
 		SeatId: 0,
 		MovieId: 0,
 		TheatreId: 0,
-		UserId: 0
+		UserId: 0,
+		timeId: 0,
+		date: ''
 	};
 
 	constructor() { }
