@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { MovieService } from '../services/movie.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { City, Movie } from '../interfaces/movie';
+import { ParseService } from '../services/parse.service';
 
 @Component({
 	selector: 'app-home',
@@ -21,10 +22,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	cities!: City[]
 
-	movies: Movie[] = [];
+	movies!: Movie[];
 
 	constructor(private movieService: MovieService,
-		private fb: FormBuilder) { }
+		private fb: FormBuilder,
+		private parseService: ParseService) { }
 
 	ngOnInit(): void {
 		this.subscription2 = this.movieService.getLocations().subscribe(data => {
@@ -44,41 +46,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 				next: data => {
 					this.subscription1 = this.movieService.getMovies().subscribe({
 						next: data => {
-							const res = data;
-
-							if (Array.isArray(res)) {
-								const movieArray: Movie[] = res.map((movieData) => {
-
-									if (movieData.type === "en") {
-										return {
-											id: movieData.id,
-											title: movieData.titleEn,
-											description: movieData.descriptionEn,
-											language: movieData.languageEn,
-											rating: movieData.rating,
-										} as Movie
-									}
-									else if (movieData.type === "te") {
-										return {
-											id: movieData.id,
-											title: movieData.titleTe,
-											description: movieData.descriptionTe,
-											language: movieData.languageTe,
-											rating: movieData.rating,
-										} as Movie
-									}
-									else {
-										return {
-											id: movieData.id,
-											title: movieData.titleHi,
-											description: movieData.descriptionHi,
-											language: movieData.languageHi,
-											rating: movieData.rating,
-										} as Movie
-									}
-								});
-								this.movies = movieArray;
-							}
+							this.movies = this.parseService.parseMovies(data);
 						},
 						error: err => console.log(err)
 					})
