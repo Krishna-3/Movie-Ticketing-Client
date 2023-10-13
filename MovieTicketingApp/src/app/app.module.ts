@@ -10,6 +10,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RequestInterceptor } from './services/request.interceptor';
+import { TheatresComponent } from './theatres/theatres.component';
+import { TheatreComponent } from './theatre/theatre.component';
 
 @NgModule({
 	declarations: [
@@ -17,7 +19,9 @@ import { RequestInterceptor } from './services/request.interceptor';
 		SignupComponent,
 		LoginComponent,
 		HomeComponent,
-		NotFoundComponent
+		NotFoundComponent,
+  TheatresComponent,
+  TheatreComponent
 	],
 	imports: [
 		BrowserModule,
