@@ -23,4 +23,8 @@ export class MovieService {
     setLanguage(languageCode: string) {
         return this.http.post(`https://localhost:7064/State/language?languageCode=${languageCode}`, null);
     }
+
+    getTheatres(movieId: number) {
+        return this.http.get(`https://localhost:7064/Theatre/movie/${movieId}`);
+    }
 }
