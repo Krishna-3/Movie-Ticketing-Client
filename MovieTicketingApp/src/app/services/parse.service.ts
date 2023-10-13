@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Movie } from '../interfaces/movie';
-import { MovieService } from './movie.service';
+import { Theatre } from '../interfaces/theatre';
 
 @Injectable({
 	providedIn: 'root'
@@ -48,5 +48,35 @@ export class ParseService {
 			});
 		}
 		return movieArray;
+	}
+
+	parseTheatres(res: Object) {
+		let theatreArray: Theatre[] = [];
+
+		if (Array.isArray(res)) {
+			theatreArray = res.map((theatreData) => {
+
+				if (theatreData.type === "en") {
+					return {
+						id: theatreData.id,
+						name: theatreData.nameEn
+					} as Theatre
+				}
+
+				else if (theatreData.type === "te") {
+					return {
+						id: theatreData.id,
+						name: theatreData.nameTe
+					} as Theatre
+				}
+				else {
+					return {
+						id: theatreData.id,
+						name: theatreData.nameHi
+					} as Theatre
+				}
+			});
+		}
+		return theatreArray;
 	}
 }
