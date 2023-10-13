@@ -7,9 +7,12 @@
 
 <main>
     <ul *ngFor="let movie of movies">
-        <li>{{movie.title}}</li>
-        <li>{{movie.description}}</li>
-        <li>{{movie.language}}</li>
-        <li>{{movie.rating}}</li>
+        <a routerLink="/movie/{{movie.id}}">
+            <img src="data:image/jpg;base64,{{movie.photo}}" />
+            <li>{{movie.title}}</li>
+            <li>{{movie.description}}</li>
+            <li>{{movie.language}}</li>
+            <li>{{movie.rating}}</li>
+        </a>
     </ul>
 </main>
