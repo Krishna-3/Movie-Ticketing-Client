@@ -1,0 +1,7 @@
+<form [formGroup]="seatForm" *ngIf="seats" (ngSubmit)="book()">
+    <span *ngFor="let seat of seats">
+        <input type="radio" formControlName="seat" value="{{seat.id}}" appDisableControl [condition]="seat.booked">
+    </span>
+
+    <button [disabled]="seatForm.invalid">book ticket</button>
+</form>
