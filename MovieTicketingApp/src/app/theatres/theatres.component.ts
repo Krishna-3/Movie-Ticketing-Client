@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { Observable, Subscription, switchMap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Theatre, TheatreEn, TheatreHi, TheatreTe, } from '../interfaces/theatre';
 import { ParseService } from '../services/parse.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { TicketService } from '../services/ticket.service';
 
 @Component({
 	selector: 'app-theatres',
 	templateUrl: './theatres.component.html',
 	styleUrls: ['./theatres.component.css']
 })
-export class TheatresComponent implements OnInit {
+export class TheatresComponent implements OnInit, OnDestroy {
 
 	subscription!: Subscription;
 
@@ -30,7 +31,8 @@ export class TheatresComponent implements OnInit {
 	constructor(private movieService: MovieService,
 		private route: ActivatedRoute,
 		private parseService: ParseService,
-		private fb: FormBuilder) { }
+		private fb: FormBuilder,
+		private ticketService: TicketService) { }
 
 	ngOnInit(): void {
 		this.getDates();
@@ -73,5 +75,16 @@ export class TheatresComponent implements OnInit {
 		const time = new Date().toString().slice(16, 24);
 
 		this.todayTimings = this.todayTimings.filter(t => t > time);
+	}
+
+	addTimeDate(t: string) {
+		this.ticketService.ticket.timeId = this.timings.indexOf(t) + 1;
+		this.ticketService.ticket.date = this.theatreForm.get('date')?.value;
+	}
+
+	ngOnDestroy(): void {
+		if (this.subscription) {
+			this.subscription.unsubscribe();
+		}
 	}
 }
