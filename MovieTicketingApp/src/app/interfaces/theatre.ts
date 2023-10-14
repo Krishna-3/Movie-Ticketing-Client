@@ -1,3 +1,5 @@
+import { City } from "./movie"
+
 export interface TheatreEn {
     id: string,
     nameEn: string,
@@ -19,4 +21,10 @@ export interface TheatreHi {
 export interface Theatre {
     id: string,
     name: string
+}
+
+export interface TheatreWithLocation {
+    id: string,
+    name: string,
+    location: City
 }
