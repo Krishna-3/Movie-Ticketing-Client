@@ -7,7 +7,6 @@ import { TicketService } from '../services/ticket.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtService } from '../services/jwt.service';
 import { LocalStorageService } from '../services/local-storage.service';
-import { TicketId } from '../interfaces/ticket';
 
 @Component({
 	selector: 'app-theatre',
