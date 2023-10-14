@@ -1,4 +1,3 @@
-{{theatres|json}}
 <form [formGroup]="theatreForm">
     <input type="radio" formControlName="date" value={{dates[0]}}>
     {{dates[0].slice(0,2)}}
@@ -22,7 +21,7 @@
     <li *ngIf="theatreForm.get('date')?.value === dates[0]">
         <span *ngFor="let t of todayTimings">
             <a routerLink="theatre/{{theatre.id}}">
-                <button>{{t}}</button>
+                <button (click)="addTimeDate(t)">{{t}}</button>
             </a>
         </span>
     </li>
@@ -30,7 +29,7 @@
     <li *ngIf="theatreForm.get('date')?.value !== dates[0]">
         <span *ngFor="let t of timings">
             <a routerLink="theatre/{{theatre.id}}">
-                <button>{{t}}</button>
+                <button (click)="addTimeDate(t)">{{t}}</button>
             </a>
         </span>
     </li>
