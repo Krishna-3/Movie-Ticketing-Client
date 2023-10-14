@@ -1,0 +1,10 @@
+<div>
+    <ul *ngFor="let ticket of tickets">
+        <li>{{ticket.time}}</li>
+        <li>{{ticket.seat.seatNumber}}</li>
+        <li>{{ticket.movieTheatre.movie.title}}</li>
+        <li>{{ticket.movieTheatre.movie.language}}</li>
+        <li>{{ticket.movieTheatre.theatre.name}}</li>
+        <li>{{ticket.movieTheatre.theatre.location.city}}</li>
+    </ul>
+</div>
