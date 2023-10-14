@@ -41,3 +41,9 @@ export interface Movie {
     rating: number,
     photo: string
 }
+
+export interface Seat {
+    id: number,
+    seatNumber: string,
+    booked: boolean
+}
