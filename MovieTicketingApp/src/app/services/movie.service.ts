@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Ticket } from '../interfaces/ticket';
+import { TicketId } from '../interfaces/ticket';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MovieService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+        private localStorageService: LocalStorageService) { }
 
     getMovies() {
         return this.http.get("https://localhost:7064/Movie");
@@ -29,7 +31,9 @@ export class MovieService {
         return this.http.get(`https://localhost:7064/Theatre/movie/${movieId}`);
     }
 
-    getSeats(ticket: Ticket) {
-        return this.http.post(`https://localhost:7064/Seat/${ticket.timeId}?date=${ticket.date}`, { ticketId: { SeatId: ticket.SeatId, MovieId: ticket.MovieId, TheatreId: ticket.TheatreId, UserId: ticket.UserId } });
+    getSeats(ticket: TicketId) {
+        const timeId = this.localStorageService.get('timeId');
+        const date = this.localStorageService.get('date');
+        return this.http.post(`https://localhost:7064/Seat/${timeId}?date=${date}`, ticket);
     }
 }

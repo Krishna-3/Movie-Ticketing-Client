@@ -1,8 +1,6 @@
-export interface Ticket {
+export interface TicketId {
     SeatId: number,
     MovieId: number,
     TheatreId: number,
     UserId: number,
-    date: string,
-    timeId: number
 }

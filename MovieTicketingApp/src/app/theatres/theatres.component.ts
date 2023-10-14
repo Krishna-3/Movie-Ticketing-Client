@@ -6,6 +6,7 @@ import { Theatre, TheatreEn, TheatreHi, TheatreTe, } from '../interfaces/theatre
 import { ParseService } from '../services/parse.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { TicketService } from '../services/ticket.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
 	selector: 'app-theatres',
@@ -32,7 +33,7 @@ export class TheatresComponent implements OnInit, OnDestroy {
 		private route: ActivatedRoute,
 		private parseService: ParseService,
 		private fb: FormBuilder,
-		private ticketService: TicketService) { }
+		private localStorageService: LocalStorageService) { }
 
 	ngOnInit(): void {
 		this.getTodayTimings();
@@ -81,8 +82,8 @@ export class TheatresComponent implements OnInit, OnDestroy {
 	}
 
 	addTimeDate(t: string) {
-		this.ticketService.ticket.timeId = this.timings.indexOf(t) + 1;
-		this.ticketService.ticket.date = this.theatreForm.get('date')?.value;
+		this.localStorageService.set('timeId', (this.timings.indexOf(t) + 1).toString());
+		this.localStorageService.set('date', this.theatreForm.get('date')?.value);
 	}
 
 	ngOnDestroy(): void {
