@@ -13,6 +13,7 @@ import { RequestInterceptor } from './services/request.interceptor';
 import { TheatresComponent } from './theatres/theatres.component';
 import { TheatreComponent } from './theatre/theatre.component';
 import { DisableControlDirective } from './directives/disable-control.directive';
+import { TicketComponent } from './ticket/ticket.component';
 
 @NgModule({
 	declarations: [
@@ -23,7 +24,8 @@ import { DisableControlDirective } from './directives/disable-control.directive'
 		NotFoundComponent,
   TheatresComponent,
   TheatreComponent,
-  DisableControlDirective
+  DisableControlDirective,
+  TicketComponent
 	],
 	imports: [
 		BrowserModule,

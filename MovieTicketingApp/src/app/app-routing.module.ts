@@ -6,6 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { TheatresComponent } from './theatres/theatres.component';
 import { TheatreComponent } from './theatre/theatre.component';
+import { TicketComponent } from './ticket/ticket.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'movie/:movieId', component: TheatresComponent },
   { path: 'movie/:movieId/theatre/:theatreId', component: TheatreComponent },
+  { path: 'ticket', component: TicketComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
