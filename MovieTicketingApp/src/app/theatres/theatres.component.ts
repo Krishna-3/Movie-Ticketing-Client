@@ -35,8 +35,8 @@ export class TheatresComponent implements OnInit, OnDestroy {
 		private ticketService: TicketService) { }
 
 	ngOnInit(): void {
-		this.getDates();
 		this.getTodayTimings();
+		this.getDates();
 
 		this.theatreForm = this.fb.group({
 			date: new FormControl(this.dates[0])
@@ -64,8 +64,11 @@ export class TheatresComponent implements OnInit, OnDestroy {
 	getDates() {
 		const currentDate = new Date();
 		const nextDate = new Date(currentDate);
+		let i = 0;
 
-		for (let i = 0; i <= 6; i++) {
+		if (this.todayTimings.length === 0)
+			i = 1;
+		for (; i <= 6; i++) {
 			nextDate.setDate(currentDate.getDate() + i);
 			this.dates.push(this.formatDate(nextDate));
 		}
