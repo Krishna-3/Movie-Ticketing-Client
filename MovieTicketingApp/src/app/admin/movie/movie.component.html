@@ -1,0 +1,76 @@
+<form [formGroup]="movieForm" (ngSubmit)="createMovie()">
+
+    <input type="text" formControlName="titleEn" placeholder="English title">
+    <input type="text" formControlName="titleHi" placeholder="hindi title">
+    <input type="text" formControlName="titleTe" placeholder="Telugu title">
+    <input type="text" formControlName="descriptionEn" placeholder="English description">
+    <input type="text" formControlName="descriptionHi" placeholder="hindi description">
+    <input type="text" formControlName="descriptionTe" placeholder="Telugu description">
+    <input type="text" formControlName="languageEn" placeholder="English language">
+    <input type="text" formControlName="languageHi" placeholder="hindi language">
+    <input type="text" formControlName="languageTe" placeholder="Telugu language">
+    <input type="text" formControlName="rating" placeholder="rating">
+    <button [disabled]="movieForm.invalid">Create movie</button>
+
+</form>
+
+<form [formGroup]="movieTitleForm" (ngSubmit)="updateMovieTitle()">
+
+    <select formControlName="movieId">
+        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+    </select>
+    <input type="text" formControlName="titleEn" placeholder="English title">
+    <input type="text" formControlName="titleHi" placeholder="hindi title">
+    <input type="text" formControlName="titleTe" placeholder="Telugu title">
+    <button [disabled]="movieTitleForm.invalid">Update titles</button>
+
+</form>
+
+<form [formGroup]="movieDescriptionForm" (ngSubmit)="updateMovieDescription()">
+
+    <select formControlName="movieId">
+        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+    </select>
+    <input type="text" formControlName="descriptionEn" placeholder="English description">
+    <input type="text" formControlName="descriptionHi" placeholder="hindi description">
+    <input type="text" formControlName="descriptionTe" placeholder="Telugu description">
+    <button [disabled]="movieDescriptionForm.invalid">Update descriptions</button>
+
+</form>
+
+<form [formGroup]="movieLanguageForm" (ngSubmit)="updateMovieLanguage()">
+
+    <select formControlName="movieId">
+        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+    </select>
+    <input type="text" formControlName="languageEn" placeholder="English language">
+    <input type="text" formControlName="languageHi" placeholder="hindi language">
+    <input type="text" formControlName="languageTe" placeholder="Telugu language">
+    <button [disabled]="movieLanguageForm.invalid">Update languages</button>
+
+</form>
+
+<form [formGroup]="movieRatingForm" (ngSubmit)="updateMovieRating()">
+
+    <select formControlName="movieId">
+        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+    </select>
+    <input type="text" formControlName="rating" placeholder="rating">
+    <button [disabled]="movieRatingForm.invalid">Update rating</button>
+
+</form>
+
+<form [formGroup]="moviePhotoForm" (ngSubmit)="uploadMoviePhoto()">
+
+    <select formControlName="movieId">
+        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+    </select>
+    <input type="file" formControlName="photo">
+    <button [disabled]="moviePhotoForm.invalid">Update photo</button>
+
+</form>
+
+<span *ngFor="let movie of movies">
+    {{movie.titleEn}}
+    <button (click)="deleteMovie(movie.id)">Delete movie</button><br>
+</span>
