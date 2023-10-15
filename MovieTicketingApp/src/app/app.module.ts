@@ -23,11 +23,11 @@ import { ProfileComponent } from './profile/profile.component';
 		LoginComponent,
 		HomeComponent,
 		NotFoundComponent,
-  TheatresComponent,
-  TheatreComponent,
-  DisableControlDirective,
-  TicketComponent,
-  ProfileComponent
+		TheatresComponent,
+		TheatreComponent,
+		DisableControlDirective,
+		TicketComponent,
+		ProfileComponent
 	],
 	imports: [
 		BrowserModule,
