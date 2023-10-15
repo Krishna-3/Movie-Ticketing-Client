@@ -7,13 +7,15 @@ import { AdminComponent } from './admin/admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TheatreComponent } from './theatre/theatre.component';
+import { MovieComponent } from './movie/movie.component';
 
 
 @NgModule({
 	declarations: [
 		LocationComponent,
 		AdminComponent,
-		TheatreComponent
+		TheatreComponent,
+		MovieComponent
 	],
 	imports: [
 		CommonModule,
