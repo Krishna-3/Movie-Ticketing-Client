@@ -125,5 +125,8 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		if (this.subscription4) {
 			this.subscription4.unsubscribe();
 		}
+		if (this.subscription5) {
+			this.subscription5.unsubscribe();
+		}
 	}
 }
