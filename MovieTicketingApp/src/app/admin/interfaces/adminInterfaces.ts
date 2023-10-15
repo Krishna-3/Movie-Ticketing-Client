@@ -16,3 +16,36 @@ export interface TheatreName {
     nameTe: string,
     nameHi: string
 }
+
+export interface MovieModel {
+    id: number,
+    titleEn: string,
+    titleHi: string,
+    titleTe: string,
+    descriptionEn: string,
+    descriptionHi: string,
+    descriptionTe: string,
+    languageEn: string,
+    languageHi: string,
+    languageTe: string,
+    rating: number,
+    photo: string
+}
+
+export interface MovieTitle {
+    titleEn: string,
+    titleHi: string,
+    titleTe: string
+}
+
+export interface MovieDescription {
+    descriptionEn: string,
+    descriptionHi: string,
+    descriptionTe: string
+}
+
+export interface MovieLanguage {
+    languageEn: string,
+    languageHi: string,
+    languageTe: string
+}
