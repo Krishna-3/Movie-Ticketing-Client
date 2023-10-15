@@ -14,6 +14,7 @@ import { TheatresComponent } from './theatres/theatres.component';
 import { TheatreComponent } from './theatre/theatre.component';
 import { DisableControlDirective } from './directives/disable-control.directive';
 import { TicketComponent } from './ticket/ticket.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,8 @@ import { TicketComponent } from './ticket/ticket.component';
   TheatresComponent,
   TheatreComponent,
   DisableControlDirective,
-  TicketComponent
+  TicketComponent,
+  ProfileComponent
 	],
 	imports: [
 		BrowserModule,

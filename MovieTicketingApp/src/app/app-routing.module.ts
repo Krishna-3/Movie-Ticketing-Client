@@ -7,20 +7,23 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TheatresComponent } from './theatres/theatres.component';
 import { TheatreComponent } from './theatre/theatre.component';
 import { TicketComponent } from './ticket/ticket.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'movie/:movieId', component: TheatresComponent },
-  { path: 'movie/:movieId/theatre/:theatreId', component: TheatreComponent },
-  { path: 'ticket', component: TicketComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent },
+	{ path: 'home', component: HomeComponent },
+	{ path: 'login', component: LoginComponent },
+	{ path: 'signup', component: SignupComponent },
+	{ path: 'movie/:movieId', component: TheatresComponent },
+	{ path: 'movie/:movieId/theatre/:theatreId', component: TheatreComponent },
+	{ path: 'ticket', component: TicketComponent },
+	{ path: 'profile', component: ProfileComponent },
+	{ path: 'admin', loadChildren: () => import('./admin/admin.module').then(e => e.AdminModule) },
+	{ path: '', redirectTo: 'home', pathMatch: 'full' },
+	{ path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule]
 })
 export class AppRoutingModule { }
