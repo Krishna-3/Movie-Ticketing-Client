@@ -1,7 +1,88 @@
-<form [formGroup]="seatForm" *ngIf="seats" (ngSubmit)="book()">
-    <span *ngFor="let seat of seats">
-        <input type="radio" formControlName="seat" value="{{seat.id}}" appDisableControl [condition]="seat.booked">
-    </span>
+<div *ngIf="!requiredSeats">
 
-    <button [disabled]="seatForm.invalid">book ticket</button>
+    <p>how many seats required?</p>
+
+    <label for="1">1</label>
+    <input type="radio" name="requiredSeats" id="1" value="1" (change)="setRequiredSeats(1)">
+    <label for="2">2</label>
+    <input type="radio" name="requiredSeats" id="2" value="2" (change)="setRequiredSeats(2)">
+    <label for="3">3</label>
+    <input type="radio" name="requiredSeats" id="3" value="3" (change)="setRequiredSeats(3)">
+    <label for="4">4</label>
+    <input type="radio" name="requiredSeats" id="4" value="4" (change)="setRequiredSeats(4)">
+    <label for="5">5</label>
+    <input type="radio" name="requiredSeats" id="5" value="5" (change)="setRequiredSeats(5)">
+
+</div>
+<br>
+<form [formGroup]="seatForm" *ngIf="seats && requiredSeats" (ngSubmit)="book()">
+
+    <div *ngIf="requiredSeats==1">
+        <span *ngFor="let seat of seats">
+            <input type="radio" formControlName="seat1" value="{{seat.id}}" appDisableControl
+                [condition]="seat.booked">{{seat.id}}
+        </span>
+    </div>
+
+    <div *ngIf="requiredSeats===2">
+        <span *ngFor="let i of seatCount">
+            <span *ngIf="i%2===0">
+                <input type="radio" formControlName="seat1" value="{{seats[i-2].id}}" appDisableControl
+                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
+                <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}" appDisableControl
+                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+            </span>
+        </span>
+    </div>
+
+    <div *ngIf="requiredSeats===3">
+        <span *ngFor="let i of seatCount">
+            <span *ngIf="i%3===0">
+                <input type="radio" formControlName="seat1" value="{{seats[i-3].id}}" appDisableControl
+                    [condition]="seats[i-3].booked">{{seats[i-3].id}}
+                <input type="radio" formControlName="seat2" value="{{seats[i-2].id}}" appDisableControl
+                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
+                <input type="radio" formControlName="seat3" value="{{seats[i-1].id}}" appDisableControl
+                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+            </span>
+        </span>
+    </div>
+
+    <div *ngIf="requiredSeats===4">
+        <span *ngFor="let i of seatCount">
+            <span *ngIf="i%4===0">
+                <input type="radio" formControlName="seat1" value="{{seats[i-4].id}}" appDisableControl
+                    [condition]="seats[i-4].booked">{{seats[i-4].id}}
+                <input type="radio" formControlName="seat2" value="{{seats[i-3].id}}" appDisableControl
+                    [condition]="seats[i-3].booked">{{seats[i-3].id}}
+                <input type="radio" formControlName="seat3" value="{{seats[i-2].id}}" appDisableControl
+                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
+                <input type="radio" formControlName="seat4" value="{{seats[i-1].id}}" appDisableControl
+                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+            </span>
+        </span>
+        <input type="radio" formControlName="seat1" value="{{seats[seats.length-2].id}}" appDisableControl
+            [condition]="seats[seats.length-2].booked">{{seats[seats.length-2].id}}
+        <input type="radio" formControlName="seat2" value="{{seats[seats.length-1].id}}" appDisableControl
+            [condition]="seats[seats.length-1].booked">{{seats[seats.length-1].id}}
+    </div>
+
+    <div *ngIf="requiredSeats===5">
+        <span *ngFor="let i of seatCount">
+            <span *ngIf="i%5===0">
+                <input type="radio" formControlName="seat1" value="{{seats[i-5].id}}" appDisableControl
+                    [condition]="seats[i-5].booked">{{seats[i-5].id}}
+                <input type="radio" formControlName="seat2" value="{{seats[i-4].id}}" appDisableControl
+                    [condition]="seats[i-4].booked">{{seats[i-4].id}}
+                <input type="radio" formControlName="seat3" value="{{seats[i-3].id}}" appDisableControl
+                    [condition]="seats[i-3].booked">{{seats[i-3].id}}
+                <input type="radio" formControlName="seat4" value="{{seats[i-2].id}}" appDisableControl
+                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
+                <input type="radio" formControlName="seat5" value="{{seats[i-1].id}}" appDisableControl
+                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+            </span>
+        </span>
+    </div>
+
+    <button>book ticket</button>
 </form>

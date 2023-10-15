@@ -21,9 +21,15 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 	seats$!: Observable<Seat[]>;
 
-	seats!: Seat[];
+	seats: Seat[] = [];
 
 	seatForm!: FormGroup;
+
+	requiredSeats: number = 0;
+
+	seatCount: number[] = [];
+
+	bookedSeats!: number[];
 
 	constructor(private movieService: MovieService,
 		private route: ActivatedRoute,
@@ -43,24 +49,48 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		);
 
 		this.subscription1 = this.seats$.subscribe({
-			next: data => this.seats = data as Seat[],
+			next: data => {
+				this.seats = data as Seat[];
+				for (let i = 0; i < this.seats.length; i++) {
+					this.seatCount.push(this.seats[i].id)
+				}
+			},
 			error: err => console.log(err)
 		});
 
 		this.seatForm = this.fb.group({
-			seat: new FormControl('', { validators: Validators.required })
+			seat1: new FormControl(''),
+			seat2: new FormControl(''),
+			seat3: new FormControl(''),
+			seat4: new FormControl(''),
+			seat5: new FormControl(''),
 		});
 	}
 
 	book() {
-		this.ticketService.ticket.SeatId = this.seatForm.get('seat')?.value;
+		this.bookedSeats = [];
+		for (const seat in this.seatForm.value) {
+			const seatId = parseInt(this.seatForm.get(seat)?.value)
+			if (!Number.isNaN(seatId)) {
+				this.bookedSeats.push(seatId)
+			}
+		}
+
+		if (this.bookedSeats.length === 0) {
+			return
+		}
+
 		const userId = this.jwtService.getId(this.localStorageService.get('accessToken') as string);
 		this.ticketService.ticket.UserId = parseInt(userId as string);
 
-		this.subscription2 = this.ticketService.bookTicket(this.ticketService.ticket).subscribe({
+		this.subscription2 = this.ticketService.bookTicket(this.ticketService.ticket, this.bookedSeats).subscribe({
 			next: data => this.router.navigate(['/ticket']),
 			error: err => console.log(err)
 		});
+	}
+
+	setRequiredSeats(seats: number) {
+		this.requiredSeats = seats;
 	}
 
 	ngOnDestroy(): void {
