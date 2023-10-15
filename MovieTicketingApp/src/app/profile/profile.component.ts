@@ -1,0 +1,102 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { JwtService } from '../services/jwt.service';
+import { LocalStorageService } from '../services/local-storage.service';
+import { Subscription } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Passwords } from '../interfaces/user';
+import { Router } from '@angular/router';
+
+@Component({
+	selector: 'app-profile',
+	templateUrl: './profile.component.html',
+	styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent implements OnInit, OnDestroy {
+
+	subscription1!: Subscription;
+
+	subscription2!: Subscription;
+
+	subscription3!: Subscription;
+
+	usernameForm!: FormGroup;
+
+	passwordForm!: FormGroup;
+
+	constructor(private userService: UserService,
+		private jwtService: JwtService,
+		private localStorageService: LocalStorageService,
+		private fb: FormBuilder,
+		private router: Router) { }
+
+	ngOnInit(): void {
+		this.usernameForm = this.fb.group({
+			username: new FormControl('', {
+				validators: [
+					Validators.required,
+					Validators.pattern(/^[A-Za-z][A-Za-z_0-9]{7,30}$/g)
+				]
+			})
+		});
+
+		this.passwordForm = this.fb.group({
+			password: new FormControl('', {
+				updateOn: 'blur',
+				validators: [
+					Validators.required
+				]
+			}),
+
+			newPassword: new FormControl('', {
+				validators: [
+					Validators.required,
+					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/g)
+				]
+			}),
+		})
+	}
+
+	changeUsername() {
+		const userId = parseInt(this.jwtService.getId(this.localStorageService.get('accessToken') as string) as string);
+		const username = this.usernameForm.get('username')?.value;
+
+		this.subscription1 = this.userService.changeUsername(userId, username).subscribe();
+	}
+
+	changePassword() {
+		const userId = parseInt(this.jwtService.getId(this.localStorageService.get('accessToken') as string) as string);
+		const password = this.passwordForm.get('password')?.value;
+		const newPassword = this.passwordForm.get('newPassword')?.value;
+		const passwords: Passwords = {
+			prevPassword: password,
+			newPassword: newPassword
+		}
+
+		this.subscription2 = this.userService.changePassword(userId, passwords).subscribe();
+	}
+
+	deleteUser() {
+		const userId = parseInt(this.jwtService.getId(this.localStorageService.get('accessToken') as string) as string);
+
+		this.subscription3 = this.userService.deleteUser(userId).subscribe({
+			next: data => {
+				this.localStorageService.remove('accessToken');
+				this.localStorageService.remove('refreshToken');
+				this.router.navigate(['/signup']);
+			}
+		});
+	}
+
+	ngOnDestroy(): void {
+		if (this.subscription1) {
+			this.subscription1.unsubscribe();
+		}
+		if (this.subscription2) {
+			this.subscription2.unsubscribe();
+		}
+		if (this.subscription3) {
+			this.subscription3.unsubscribe();
+		}
+	}
+}

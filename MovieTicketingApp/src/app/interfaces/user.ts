@@ -25,3 +25,8 @@ export interface User {
     iss: string,
     aud: string
 }
+
+export interface Passwords {
+    prevPassword: string,
+    newPassword: string
+}

@@ -1,0 +1,12 @@
+<form [formGroup]="usernameForm" (ngSubmit)="changeUsername()">
+    <input type="text" formControlName="username" placeholder="username">
+    <button [disabled]="usernameForm.invalid">Change username</button>
+</form>
+
+<form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+    <input type="password" formControlName="password" placeholder="password">
+    <input type="password" formControlName="newPassword" placeholder="new password">
+    <button [disabled]="passwordForm.invalid">Change password</button>
+</form>
+
+<button (click)="deleteUser()">Delete account</button>
