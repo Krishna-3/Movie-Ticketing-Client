@@ -12,6 +12,7 @@ import { AdminLocationService } from '../services/admin-location.service';
 	styleUrls: ['./theatre.component.css']
 })
 export class TheatreComponent implements OnInit, OnDestroy {
+
 	subscription1!: Subscription;
 
 	subscription2!: Subscription;
@@ -20,13 +21,15 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 	subscription4!: Subscription;
 
+	subscription5!: Subscription;
+
 	theatreForm!: FormGroup;
 
 	theatreNameForm!: FormGroup;
 
 	theatreLocationForm!: FormGroup;
 
-	theatres$!: Observable<TheatreModel[]>
+	theatres!: TheatreModel[];
 
 	cities$!: Observable<City[]>
 
@@ -36,7 +39,7 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		private router: Router) { }
 
 	ngOnInit(): void {
-		this.theatres$ = this.adminTheatreService.getTheatres() as Observable<TheatreModel[]>;
+		this.subscription5 = this.adminTheatreService.getTheatres().subscribe(data => this.theatres = data as TheatreModel[]);
 		this.cities$ = this.adminLocationService.getLocations() as Observable<City[]>;
 
 		this.theatreForm = this.fb.group({
@@ -118,6 +121,9 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		}
 		if (this.subscription3) {
 			this.subscription3.unsubscribe();
+		}
+		if (this.subscription4) {
+			this.subscription4.unsubscribe();
 		}
 	}
 }
