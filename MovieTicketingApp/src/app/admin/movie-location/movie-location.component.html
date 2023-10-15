@@ -1,0 +1,17 @@
+<form [formGroup]="movieLocationForm" (ngSubmit)="createMovieLocation()">
+
+    <select formControlName="locationId">
+        <option *ngFor="let city of cities$|async" value={{city.id}}>{{city.city}}</option>
+    </select>
+    <select formControlName="movieId">
+        <option *ngFor="let movie of movies$|async" value={{movie.id}}>{{movie.titleEn}}</option>
+    </select>
+    <button [disabled]="movieLocationForm.invalid">Create movie-location</button>
+
+</form>
+
+<span *ngFor="let movieLocation of movieLocations$|async">
+    {{movieLocation.movie.titleEn}},
+    {{movieLocation.location.city}}
+    <button (click)="deleteMovieLocation(movieLocation.id)">Delete movie-location</button><br>
+</span>
