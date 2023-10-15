@@ -20,10 +20,10 @@ export class TicketService {
 		private localStorageService: LocalStorageService,
 		private jwtService: JwtService) { }
 
-	bookTicket(ticket: TicketId) {
+	bookTicket(ticket: TicketId, bookedSeats: number[]) {
 		const timeId = this.localStorageService.get('timeId');
 		const date = this.localStorageService.get('date');
-		return this.http.post(`https://localhost:7064/Ticket/${timeId}?date=${date}`, ticket);
+		return this.http.post(`https://localhost:7064/Ticket/${timeId}?date=${date}&seats=${bookedSeats}`, ticket);
 	}
 
 	getTickets() {
