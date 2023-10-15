@@ -61,7 +61,7 @@ export class MovieComponent implements OnInit, OnDestroy {
 			languageEn: new FormControl('', { updateOn: 'blur', validators: [Validators.required, Validators.pattern(/^[a-zA-Z]{2,20}$/m)] }),
 			languageTe: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
 			languageHi: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
-			rating: new FormControl('', { validators: [Validators.required] })
+			rating: new FormControl('', { validators: [Validators.required, Validators.max(5), Validators.min(1)] })
 		});
 
 		this.movieTitleForm = this.fb.group({
@@ -87,7 +87,7 @@ export class MovieComponent implements OnInit, OnDestroy {
 
 		this.movieRatingForm = this.fb.group({
 			rating: new FormControl('', { validators: [Validators.required] }),
-			movieId: new FormControl('', { validators: [Validators.required] })
+			movieId: new FormControl('', { validators: [Validators.required, Validators.max(5), Validators.min(1)] })
 		});
 
 		this.moviePhotoForm = this.fb.group({
