@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { TheatreComponent } from './theatre/theatre.component';
 import { MovieComponent } from './movie/movie.component';
+import { MovieLocationComponent } from './movie-location/movie-location.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { MovieComponent } from './movie/movie.component';
 		LocationComponent,
 		AdminComponent,
 		TheatreComponent,
-		MovieComponent
+		MovieComponent,
+  MovieLocationComponent
 	],
 	imports: [
 		CommonModule,
