@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Theatre, TheatreEn, TheatreHi, TheatreTe, } from '../interfaces/theatre';
 import { ParseService } from '../services/parse.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { TicketService } from '../services/ticket.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
@@ -65,11 +64,8 @@ export class TheatresComponent implements OnInit, OnDestroy {
 	getDates() {
 		const currentDate = new Date();
 		const nextDate = new Date(currentDate);
-		let i = 0;
 
-		if (this.todayTimings.length === 0)
-			i = 1;
-		for (; i <= 6; i++) {
+		for (let i = 0; i <= 6; i++) {
 			nextDate.setDate(currentDate.getDate() + i);
 			this.dates.push(this.formatDate(nextDate));
 		}
