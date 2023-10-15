@@ -1,0 +1,40 @@
+<form [formGroup]="theatreForm" (ngSubmit)="createTheatre()">
+
+    <input type="text" formControlName="nameEn" placeholder="English name">
+    <input type="text" formControlName="nameHi" placeholder="hindi name">
+    <input type="text" formControlName="nameTe" placeholder="Telugu name">
+    <select formControlName="locationId">
+        <option *ngFor="let city of cities$|async" value={{city.id}}>{{city.city}}</option>
+    </select>
+    <button [disabled]="theatreForm.invalid">Create theatre</button>
+
+</form>
+
+<form [formGroup]="theatreNameForm" (ngSubmit)="updateTheatreName()">
+
+    <input type="text" formControlName="nameEn" placeholder="English name">
+    <input type="text" formControlName="nameHi" placeholder="hindi name">
+    <input type="text" formControlName="nameTe" placeholder="Telugu name">
+    <select formControlName="theatreId">
+        <option *ngFor="let theatre of theatres$|async" value={{theatre.id}}>{{theatre.nameEn}}</option>
+    </select>
+    <button [disabled]="theatreNameForm.invalid">Update names</button>
+
+</form>
+
+<form [formGroup]="theatreLocationForm" (ngSubmit)="updateTheatreLocation()">
+
+    <select formControlName="theatreId">
+        <option *ngFor="let theatre of theatres$|async" value={{theatre.id}}>{{theatre.nameEn}}</option>
+    </select>
+    <select formControlName="locationId">
+        <option *ngFor="let city of cities$|async" value={{city.id}}>{{city.city}}</option>
+    </select>
+    <button [disabled]="theatreLocationForm.invalid">Update location</button>
+
+</form>
+
+<span *ngFor="let theatre of theatres$|async">
+    {{theatre.nameEn}}
+    <button (click)="deleteTheatre(theatre.id)">Delete theatre</button><br>
+</span>
