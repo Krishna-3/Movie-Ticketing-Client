@@ -49,3 +49,16 @@ export interface MovieLanguage {
     languageHi: string,
     languageTe: string
 }
+
+export interface MovieLocationModel {
+    id: number,
+    locationId: number,
+    movieId: number,
+    movie: MovieModel,
+    location: City
+}
+
+export interface MovieLocationId {
+    locationId: number,
+    movieId: number
+}
