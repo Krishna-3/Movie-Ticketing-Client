@@ -49,11 +49,16 @@ export class MovieLocationComponent implements OnInit, OnDestroy {
 			movieId: this.movieLocationForm.get('movieId')?.value
 		}
 
-		this.subscription1 = this.adminMovieLocationService.createMovieLocation(movieLocation).subscribe();
+		this.subscription1 = this.adminMovieLocationService.createMovieLocation(movieLocation).subscribe(data => this.reload());
 	}
 
 	deleteMovieLocation(mlId: number) {
-		this.subscription2 = this.adminMovieLocationService.deleteMovieLocation(mlId).subscribe();
+		this.subscription2 = this.adminMovieLocationService.deleteMovieLocation(mlId).subscribe(data => this.reload());
+	}
+
+	reload() {
+		const present = this.router.url;
+		this.router.navigate(['/admin']).then(s => this.router.navigateByUrl(present))
 	}
 
 	ngOnDestroy(): void {
