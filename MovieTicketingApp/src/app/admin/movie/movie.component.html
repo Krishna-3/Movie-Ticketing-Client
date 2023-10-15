@@ -65,12 +65,18 @@
     <select formControlName="movieId">
         <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
     </select>
-    <input type="file" formControlName="photo">
-    <button [disabled]="moviePhotoForm.invalid">Update photo</button>
+    <input type="file" formControlName="photo" (change)="onFileChange($event)">
+    <button [disabled]="moviePhotoForm.invalid">Upload photo</button>
 
 </form>
 
-<span *ngFor="let movie of movies">
-    {{movie.titleEn}}
-    <button (click)="deleteMovie(movie.id)">Delete movie</button><br>
-</span>
+<div *ngFor="let movie of movies">
+    <span>
+        {{movie.titleEn}}
+        <button (click)="deleteMovie(movie.id)">Delete movie</button>
+    </span>
+    <span>
+        <img src="data:image/jpg;base64,{{movie.photo}}" />
+        <button (click)="deletePhoto(movie.id)">Delete photo</button>
+    </span>
+</div>

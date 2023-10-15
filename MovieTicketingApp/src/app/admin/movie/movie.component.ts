@@ -28,6 +28,8 @@ export class MovieComponent implements OnInit, OnDestroy {
 
 	subscription8!: Subscription;
 
+	subscription9!: Subscription;
+
 	movieForm!: FormGroup;
 
 	movieTitleForm!: FormGroup;
@@ -155,8 +157,8 @@ export class MovieComponent implements OnInit, OnDestroy {
 
 	uploadMoviePhoto() {
 		const photo = new FormData();
-		photo.append('photo', this.movieRatingForm.get('Rating')?.value);
-		const movieId = this.movieRatingForm.get('movieId')?.value;
+		photo.append('photo', this.moviePhotoForm.get('photo')?.value);
+		const movieId = this.moviePhotoForm.get('movieId')?.value;
 
 		this.subscription6 = this.adminMovieService.uploadPhoto(photo, movieId).subscribe(data => this.reload());
 	}
@@ -165,9 +167,23 @@ export class MovieComponent implements OnInit, OnDestroy {
 		this.subscription7 = this.adminMovieService.deleteMovie(movieId).subscribe(data => this.reload());
 	}
 
+	deletePhoto(movieId: number) {
+		this.subscription9 = this.adminMovieService.deletePhoto(movieId).subscribe(data => this.reload());
+	}
+
 	reload() {
 		const present = this.router.url;
 		this.router.navigate(['/admin']).then(s => this.router.navigateByUrl(present))
+	}
+
+	onFileChange(event: any) {
+
+		if (event.target.files.length > 0) {
+			const file = event.target.files[0];
+			this.moviePhotoForm.patchValue({
+				photo: file
+			});
+		}
 	}
 
 	ngOnDestroy(): void {
@@ -194,6 +210,9 @@ export class MovieComponent implements OnInit, OnDestroy {
 		}
 		if (this.subscription8) {
 			this.subscription8.unsubscribe();
+		}
+		if (this.subscription9) {
+			this.subscription9.unsubscribe();
 		}
 	}
 }
