@@ -1,0 +1,22 @@
+<form [formGroup]="locationForm" (ngSubmit)="createLocation()">
+
+    <input type="text" formControlName="city" placeholder="city">
+    <button [disabled]="locationForm.invalid">Create location</button>
+
+</form>
+
+<form [formGroup]="locationUpdateForm" (ngSubmit)="updateLocation()">
+
+    <select formControlName="cityId">
+        <option *ngFor="let city of cities$|async" value={{city.id}}>{{city.city}}</option>
+    </select>
+
+    <input type="text" formControlName="city" placeholder="city">
+    <button [disabled]="locationUpdateForm.invalid">Update location</button>
+
+</form>
+
+<span *ngFor="let city of cities$|async">
+    {{city.city}}
+    <button (click)="deleteLocation(city.id)">Delete location</button><br>
+</span>
