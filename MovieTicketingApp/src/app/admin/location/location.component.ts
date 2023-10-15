@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { City } from 'src/app/interfaces/movie';
 import { AdminLocationService } from '../services/admin-location.service';
 import { Router } from '@angular/router';
+import { City } from '../interfaces/adminInterfaces';
 
 @Component({
 	selector: 'app-location',
@@ -47,7 +47,7 @@ export class LocationComponent implements OnInit, OnDestroy {
 					Validators.pattern(/^[a-zA-Z]{2,29}$/m)
 				]
 			}),
-			cityId: new FormControl('', { validators: Validators.required })
+			cityId: new FormControl('', { validators: [Validators.required] })
 		});
 	}
 
