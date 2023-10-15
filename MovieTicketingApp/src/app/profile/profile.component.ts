@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			username: new FormControl('', {
 				validators: [
 					Validators.required,
-					Validators.pattern(/^[A-Za-z][A-Za-z_0-9]{7,30}$/g)
+					Validators.pattern(/^[A-Za-z][A-Za-z_0-9]{7,30}$/m)
 				]
 			})
 		});
@@ -51,7 +51,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			newPassword: new FormControl('', {
 				validators: [
 					Validators.required,
-					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/g)
+					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/m)
 				]
 			}),
 		})
