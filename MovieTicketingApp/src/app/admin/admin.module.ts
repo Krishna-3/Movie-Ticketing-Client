@@ -6,18 +6,20 @@ import { LocationComponent } from './location/location.component';
 import { AdminComponent } from './admin/admin.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TheatreComponent } from './theatre/theatre.component';
 
 
 @NgModule({
-  declarations: [
-    LocationComponent,
-    AdminComponent
-  ],
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule
-  ]
+	declarations: [
+		LocationComponent,
+		AdminComponent,
+		TheatreComponent
+	],
+	imports: [
+		CommonModule,
+		AdminRoutingModule,
+		ReactiveFormsModule,
+		HttpClientModule
+	]
 })
 export class AdminModule { }
