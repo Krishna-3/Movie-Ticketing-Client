@@ -15,6 +15,7 @@ import { TheatreComponent } from './theatre/theatre.component';
 import { DisableControlDirective } from './directives/disable-control.directive';
 import { TicketComponent } from './ticket/ticket.component';
 import { ProfileComponent } from './profile/profile.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [
@@ -33,7 +34,8 @@ import { ProfileComponent } from './profile/profile.component';
 		BrowserModule,
 		AppRoutingModule,
 		ReactiveFormsModule,
-		HttpClientModule
+		HttpClientModule,
+  BrowserAnimationsModule
 	],
 	providers: [
 		{
