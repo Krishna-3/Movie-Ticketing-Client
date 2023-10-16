@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TheatreComponent } from './theatre/theatre.component';
 import { MovieComponent } from './movie/movie.component';
 import { MovieLocationComponent } from './movie-location/movie-location.component';
+import { MovieTheatreComponent } from './movie-theatre/movie-theatre.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MovieLocationComponent } from './movie-location/movie-location.componen
 		AdminComponent,
 		TheatreComponent,
 		MovieComponent,
-  MovieLocationComponent
+		MovieLocationComponent,
+		MovieTheatreComponent
 	],
 	imports: [
 		CommonModule,
