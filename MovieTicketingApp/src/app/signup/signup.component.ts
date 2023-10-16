@@ -37,8 +37,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 				updateOn: 'blur',
 				validators: [
 					Validators.required,
-					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/m),
-					Validators.maxLength(20),
+					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/m),
 					Validators.minLength(6)
 				]
 			}),
@@ -47,8 +46,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 				updateOn: 'blur',
 				validators: [
 					Validators.required,
-					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/m),
-					Validators.maxLength(20),
+					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/m),
 					Validators.minLength(6)
 				]
 			}),
