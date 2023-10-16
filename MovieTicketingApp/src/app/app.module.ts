@@ -17,6 +17,12 @@ import { TicketComponent } from './ticket/ticket.component';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -35,7 +41,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		AppRoutingModule,
 		ReactiveFormsModule,
 		HttpClientModule,
-  BrowserAnimationsModule
+		BrowserAnimationsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatCardModule,
+		MatGridListModule
 	],
 	providers: [
 		{
