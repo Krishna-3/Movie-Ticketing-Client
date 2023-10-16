@@ -25,9 +25,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
 
-			username: new FormControl('', { updateOn: 'blur' }),
+			username: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
 
-			password: new FormControl('')
+			password: new FormControl('', { validators: [Validators.required] })
 		});
 	}
 
