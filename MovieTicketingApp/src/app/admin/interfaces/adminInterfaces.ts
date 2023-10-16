@@ -62,3 +62,16 @@ export interface MovieLocationId {
     locationId: number,
     movieId: number
 }
+
+export interface MovieTheatreModel {
+    id: number,
+    theatreId: number,
+    movieId: number,
+    movie: MovieModel,
+    theatre: TheatreModel
+}
+
+export interface MovieTheatreId {
+    theatreId: number,
+    movieId: number
+}
