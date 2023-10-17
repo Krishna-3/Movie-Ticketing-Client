@@ -1,12 +1,96 @@
-<form [formGroup]="usernameForm" (ngSubmit)="changeUsername()">
-    <input type="text" formControlName="username" placeholder="username">
-    <button [disabled]="usernameForm.invalid">Change username</button>
-</form>
+<div class="d-flex justify-content-center align-items-center full-height">
 
-<form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
-    <input type="password" formControlName="password" placeholder="password">
-    <input type="password" formControlName="newPassword" placeholder="new password">
-    <button [disabled]="passwordForm.invalid">Change password</button>
-</form>
+    <mat-card class="p-3">
 
-<button (click)="deleteUser()">Delete account</button>
+        <mat-card-header>
+            <mat-card-title>Update profile</mat-card-title>
+        </mat-card-header><br>
+
+        <div class="d-flex flex-row justify-content-evenly align-items-center">
+
+            <div class="mx-3">
+
+                <form [formGroup]="usernameForm" (ngSubmit)="changeUsername()">
+
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>Username</mat-label>
+                            <input matInput type="text" formControlName="username" placeholder="username">
+
+                            <mat-error *ngIf="usernameForm.get('username')?.hasError('required')">
+                                Please enter a username
+                            </mat-error>
+                            <mat-error *ngIf="usernameForm.get('username')?.hasError('minlength')">
+                                Min <strong>7</strong> characters required
+                            </mat-error>
+                            <mat-error *ngIf="usernameForm.get('username')?.hasError('pattern')">
+                                Should have A-Z,a-z,0-9,_ only
+                            </mat-error>
+                            <mat-error *ngIf="usernameForm.get('username')?.hasError('maxlength')">
+                                Max <strong>30</strong> characters allowed
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+
+                    <mat-card-content>
+                        <button mat-raised-button color="accent" [disabled]="usernameForm.invalid">Change
+                            username</button>
+                    </mat-card-content>
+
+                </form>
+            </div>
+
+            <div class="mx-3">
+                <form [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" formControlName="password" placeholder="password">
+                        </mat-form-field>
+                    </mat-card-content>
+
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <input matInput type="password" formControlName="newPassword" placeholder="new password">
+
+                            <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('required')">
+                                Please enter a password
+                            </mat-error>
+                            <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('minlength')">
+                                Min <strong>6</strong> characters required
+                            </mat-error>
+                            <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('pattern')">
+                                should consist A-Z,a-z,0-9
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content>
+
+                    <mat-card-content>
+                        <button mat-raised-button color="accent" [disabled]="passwordForm.invalid">Change
+                            password</button>
+                    </mat-card-content>
+
+                </form>
+            </div>
+
+            <div class="mx-3">
+                <mat-card-content>
+                    <button mat-raised-button color="warn" (click)="deleteUser()">Delete account</button>
+                </mat-card-content>
+
+                <mat-card-header class="mat-headline-6">
+                    Your account will be deleted!
+                </mat-card-header><br>
+            </div>
+
+        </div>
+
+    </mat-card>
+
+</div>
