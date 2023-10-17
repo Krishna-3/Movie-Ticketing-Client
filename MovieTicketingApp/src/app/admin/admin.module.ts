@@ -11,6 +11,12 @@ import { MovieComponent } from './movie/movie.component';
 import { MovieLocationComponent } from './movie-location/movie-location.component';
 import { MovieTheatreComponent } from './movie-theatre/movie-theatre.component';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
 	declarations: [
@@ -25,7 +31,13 @@ import { MovieTheatreComponent } from './movie-theatre/movie-theatre.component';
 		CommonModule,
 		AdminRoutingModule,
 		ReactiveFormsModule,
-		HttpClientModule
+		HttpClientModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatIconModule,
+		MatDividerModule
 	]
 })
 export class AdminModule { }

@@ -20,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -47,7 +46,6 @@ import { MatButtonModule } from '@angular/material/button';
 		MatFormFieldModule,
 		MatInputModule,
 		MatCardModule,
-		MatGridListModule,
 		MatButtonModule,
 		MatIconModule,
 		MatDividerModule
