@@ -36,7 +36,7 @@ import { MatButtonModule } from '@angular/material/button';
 		TheatreComponent,
 		DisableControlDirective,
 		TicketComponent,
-		ProfileComponent
+		ProfileComponent,
 	],
 	imports: [
 		BrowserModule,
