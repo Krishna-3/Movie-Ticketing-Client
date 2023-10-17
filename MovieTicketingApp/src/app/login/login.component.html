@@ -1,46 +1,45 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
 
-    <mat-grid-list cols="1" rowHeight="5:2">
+    <div class="d-flex justify-content-center align-items-center full-height">
 
-        <mat-grid-tile>
-            <mat-card class="p-3">
+        <mat-card class="p-3">
 
-                <mat-card-header>
-                    <mat-card-title>Login</mat-card-title>
-                </mat-card-header><br>
+            <mat-card-header>
+                <mat-card-title>Login</mat-card-title>
+            </mat-card-header><br>
 
-                <mat-card-content>
-                    <mat-form-field>
+            <mat-card-content>
+                <mat-form-field>
 
-                        <mat-label>Username</mat-label>
-                        <input matInput type="text" formControlName="username" />
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username" />
 
-                        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
-                            Please enter a username
-                        </mat-error>
+                    <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                        Please enter a username
+                    </mat-error>
 
-                    </mat-form-field>
-                </mat-card-content>
+                </mat-form-field>
+            </mat-card-content>
 
-                <mat-card-content>
-                    <mat-form-field>
+            <mat-card-content>
+                <mat-form-field>
 
-                        <mat-label>Password</mat-label>
-                        <input matInput type="password" formControlName="password" />
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password" />
 
-                        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
-                            Please enter a password
-                        </mat-error>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                        Please enter a password
+                    </mat-error>
 
-                    </mat-form-field>
-                </mat-card-content>
+                </mat-form-field>
+            </mat-card-content>
 
-                <mat-card-content>
-                    <button mat-raised-button color="accent" [disabled]="loginForm.invalid">login</button>
-                </mat-card-content>
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]="loginForm.invalid">login</button>
+            </mat-card-content>
 
-            </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
+        </mat-card>
+
+    </div>
 
 </form>
