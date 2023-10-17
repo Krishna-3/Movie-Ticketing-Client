@@ -35,7 +35,9 @@ export class LocationComponent implements OnInit, OnDestroy {
 			city: new FormControl('', {
 				validators: [
 					Validators.required,
-					Validators.pattern(/^[a-zA-Z]{2,29}$/m)
+					Validators.pattern(/^[a-zA-Z]{2,29}$/m),
+					Validators.maxLength(29),
+					Validators.minLength(2)
 				]
 			})
 		});
@@ -44,7 +46,9 @@ export class LocationComponent implements OnInit, OnDestroy {
 			city: new FormControl('', {
 				validators: [
 					Validators.required,
-					Validators.pattern(/^[a-zA-Z]{2,29}$/m)
+					Validators.pattern(/^[a-zA-Z]{2,29}$/m),
+					Validators.maxLength(29),
+					Validators.minLength(2)
 				]
 			}),
 			cityId: new FormControl('', { validators: [Validators.required] })
