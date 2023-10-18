@@ -47,6 +47,8 @@ export class TheatreComponent implements OnInit, OnDestroy {
 				updateOn: 'blur',
 				validators: [
 					Validators.required,
+					Validators.maxLength(29),
+					Validators.minLength(2),
 					Validators.pattern(/^[a-zA-Z ]{2,29}$/m)
 				]
 			}),
