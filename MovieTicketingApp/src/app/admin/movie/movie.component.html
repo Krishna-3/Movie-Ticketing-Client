@@ -1,82 +1,471 @@
-<form [formGroup]="movieForm" (ngSubmit)="createMovie()">
+<div class="d-flex justify-content-center my-3">
 
-    <input type="text" formControlName="titleEn" placeholder="English title">
-    <input type="text" formControlName="titleHi" placeholder="hindi title">
-    <input type="text" formControlName="titleTe" placeholder="Telugu title">
-    <input type="text" formControlName="descriptionEn" placeholder="English description">
-    <input type="text" formControlName="descriptionHi" placeholder="hindi description">
-    <input type="text" formControlName="descriptionTe" placeholder="Telugu description">
-    <input type="text" formControlName="languageEn" placeholder="English language">
-    <input type="text" formControlName="languageHi" placeholder="hindi language">
-    <input type="text" formControlName="languageTe" placeholder="Telugu language">
-    <input type="text" formControlName="rating" placeholder="rating">
-    <button [disabled]="movieForm.invalid">Create movie</button>
+    <form [formGroup]="movieForm" (ngSubmit)="createMovie()">
 
-</form>
+        <mat-card class="p-3">
 
-<form [formGroup]="movieTitleForm" (ngSubmit)="updateMovieTitle()">
+            <mat-card-header>
+                <mat-card-title>Movie</mat-card-title>
+            </mat-card-header><br>
 
-    <select formControlName="movieId">
-        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
-    </select>
-    <input type="text" formControlName="titleEn" placeholder="English title">
-    <input type="text" formControlName="titleHi" placeholder="hindi title">
-    <input type="text" formControlName="titleTe" placeholder="Telugu title">
-    <button [disabled]="movieTitleForm.invalid">Update titles</button>
+            <div class="d-flex flex-row justify-content-evenly align-items-center">
 
-</form>
+                <div>
+                    <mat-card-content>
+                        <mat-form-field>
 
-<form [formGroup]="movieDescriptionForm" (ngSubmit)="updateMovieDescription()">
+                            <mat-label>English title</mat-label>
+                            <input matInput type="text" formControlName="titleEn">
 
-    <select formControlName="movieId">
-        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
-    </select>
-    <input type="text" formControlName="descriptionEn" placeholder="English description">
-    <input type="text" formControlName="descriptionHi" placeholder="hindi description">
-    <input type="text" formControlName="descriptionTe" placeholder="Telugu description">
-    <button [disabled]="movieDescriptionForm.invalid">Update descriptions</button>
+                            <mat-error *ngIf="movieForm.get('titleEn')?.hasError('required')">
+                                Please enter a movie name
+                            </mat-error>
 
-</form>
+                        </mat-form-field>
+                    </mat-card-content><br>
 
-<form [formGroup]="movieLanguageForm" (ngSubmit)="updateMovieLanguage()">
+                    <mat-card-content>
+                        <mat-form-field>
 
-    <select formControlName="movieId">
-        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
-    </select>
-    <input type="text" formControlName="languageEn" placeholder="English language">
-    <input type="text" formControlName="languageHi" placeholder="hindi language">
-    <input type="text" formControlName="languageTe" placeholder="Telugu language">
-    <button [disabled]="movieLanguageForm.invalid">Update languages</button>
+                            <mat-label>Hindi title</mat-label>
+                            <input matInput type="text" formControlName="titleHi">
 
-</form>
+                            <mat-error *ngIf="movieForm.get('titleHi')?.hasError('required')">
+                                Please enter a movie name
+                            </mat-error>
 
-<form [formGroup]="movieRatingForm" (ngSubmit)="updateMovieRating()">
+                        </mat-form-field>
+                    </mat-card-content><br>
 
-    <select formControlName="movieId">
-        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
-    </select>
-    <input type="text" formControlName="rating" placeholder="rating">
-    <button [disabled]="movieRatingForm.invalid">Update rating</button>
+                    <mat-card-content>
+                        <mat-form-field>
 
-</form>
+                            <mat-label>Telugu title</mat-label>
+                            <input matInput type="text" formControlName="titleTe">
 
-<form [formGroup]="moviePhotoForm" (ngSubmit)="uploadMoviePhoto()">
+                            <mat-error *ngIf="movieForm.get('titleTe')?.hasError('required')">
+                                Please enter a movie name
+                            </mat-error>
 
-    <select formControlName="movieId">
-        <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
-    </select>
-    <input type="file" formControlName="photo" (change)="onFileChange($event)">
-    <button [disabled]="moviePhotoForm.invalid">Upload photo</button>
+                        </mat-form-field>
+                    </mat-card-content><br>
+                </div>
 
-</form>
+                <div>
+                    <mat-card-content>
+                        <mat-form-field>
 
-<div *ngFor="let movie of movies">
-    <span>
-        {{movie.titleEn}}
-        <button (click)="deleteMovie(movie.id)">Delete movie</button>
-    </span>
-    <span>
-        <img src="data:image/jpg;base64,{{movie.photo}}" />
-        <button (click)="deletePhoto(movie.id)">Delete photo</button>
-    </span>
+                            <mat-label>English description</mat-label>
+                            <textarea matInput formControlName="descriptionEn"></textarea>
+
+                            <mat-error *ngIf="movieForm.get('descriptionEn')?.hasError('required')">
+                                Please enter a description
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>Hindi description</mat-label>
+                            <textarea matInput formControlName="descriptionHi"></textarea>
+
+                            <mat-error *ngIf="movieForm.get('descriptionHi')?.hasError('required')">
+                                Please enter a description
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>Telugu description</mat-label>
+                            <textarea matInput formControlName="descriptionTe"></textarea>
+
+                            <mat-error *ngIf="movieForm.get('descriptionTe')?.hasError('required')">
+                                Please enter a description
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+                </div>
+
+                <div>
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>English language</mat-label>
+                            <input matInput type="text" formControlName="languageEn">
+
+                            <mat-error *ngIf="movieForm.get('languageEn')?.hasError('required')">
+                                Please enter a language
+                            </mat-error>
+                            <mat-error *ngIf="movieForm.get('languageEn')?.hasError('minlength')">
+                                Atleast 2 characters required
+                            </mat-error>
+                            <mat-error *ngIf="movieForm.get('languageEn')?.hasError('maxlength')">
+                                Max 29 characters allowed
+                            </mat-error>
+                            <mat-error *ngIf="movieForm.get('languageEn')?.hasError('pattern')">
+                                Only alphabets allowed
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>Hindi language</mat-label>
+                            <input matInput type="text" formControlName="languageHi">
+
+                            <mat-error *ngIf="movieForm.get('languageHi')?.hasError('required')">
+                                Please enter a language
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>Telugu language</mat-label>
+                            <input matInput type="text" formControlName="languageTe">
+
+                            <mat-error *ngIf="movieForm.get('languageTe')?.hasError('required')">
+                                Please enter a language
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+                </div>
+
+                <div>
+                    <mat-card-content>
+                        <mat-form-field>
+
+                            <mat-label>Rating</mat-label>
+                            <input matInput type="text" formControlName="rating">
+
+                            <mat-error *ngIf="movieForm.get('rating')?.hasError('required')">
+                                Please enter a rating
+                            </mat-error>
+                            <mat-error *ngIf="movieForm.get('rating')?.hasError('min')">
+                                min 1 required
+                            </mat-error>
+                            <mat-error *ngIf="movieForm.get('rating')?.hasError('max')">
+                                max 5 allowed
+                            </mat-error>
+
+                        </mat-form-field>
+                    </mat-card-content><br>
+
+                    <mat-card-content>
+                        <button mat-raised-button color="accent" [disabled]="movieForm.invalid">Create movie</button>
+                    </mat-card-content>
+                </div>
+
+            </div>
+
+        </mat-card>
+
+    </form>
 </div>
+
+<mat-card class="m-5 p-3">
+
+    <mat-card-header>
+        <mat-card-title>Update movie</mat-card-title>
+    </mat-card-header><br>
+
+    <div class="d-flex justify-content-evenly align-items-center">
+
+        <form [formGroup]="movieTitleForm" (ngSubmit)="updateMovieTitle()">
+
+            <mat-card-header>
+                <mat-card-title>Update titles</mat-card-title>
+            </mat-card-header><br>
+
+            <mat-card-content>
+
+                <select class="form-select" formControlName="movieId">
+                    <option value="" selected>Select movie</option>
+                    <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+                </select>
+
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>English title</mat-label>
+                    <input matInput type="text" formControlName="titleEn">
+
+                    <mat-error *ngIf="movieForm.get('titleEn')?.hasError('required')">
+                        Please enter a movie name
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>Hindi title</mat-label>
+                    <input matInput type="text" formControlName="titleHi">
+
+                    <mat-error *ngIf="movieForm.get('titleHi')?.hasError('required')">
+                        Please enter a movie name
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>Telugu title</mat-label>
+                    <input matInput type="text" formControlName="titleTe">
+
+                    <mat-error *ngIf="movieForm.get('titleTe')?.hasError('required')">
+                        Please enter a movie name
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]="movieTitleForm.invalid">Update titles</button>
+            </mat-card-content>
+
+        </form>
+
+        <form [formGroup]="movieDescriptionForm" (ngSubmit)="updateMovieDescription()">
+
+            <mat-card-header>
+                <mat-card-title>Update descriptions</mat-card-title>
+            </mat-card-header><br>
+
+            <mat-card-content>
+                <select class="form-select" formControlName="movieId">
+                    <option value="" selected>Select movie</option>
+                    <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+                </select>
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>English description</mat-label>
+                    <textarea matInput formControlName="descriptionEn"></textarea>
+
+                    <mat-error *ngIf="movieForm.get('descriptionEn')?.hasError('required')">
+                        Please enter a description
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>Hindi description</mat-label>
+                    <textarea matInput formControlName="descriptionHi"></textarea>
+
+                    <mat-error *ngIf="movieForm.get('descriptionHi')?.hasError('required')">
+                        Please enter a description
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>Telugu description</mat-label>
+                    <textarea matInput formControlName="descriptionTe"></textarea>
+
+                    <mat-error *ngIf="movieForm.get('descriptionTe')?.hasError('required')">
+                        Please enter a description
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content>
+
+
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]="movieDescriptionForm.invalid">Update
+                    descriptions</button>
+            </mat-card-content>
+
+        </form>
+
+    </div>
+
+    <div class="d-flex justify-content-evenly align-items-center">
+        <form [formGroup]="movieLanguageForm" (ngSubmit)="updateMovieLanguage()">
+
+            <mat-card-header>
+                <mat-card-title>Update languages</mat-card-title>
+            </mat-card-header><br>
+
+            <mat-card-content>
+                <select class="form-select" formControlName="movieId">
+                    <option value="" selected>Select movie</option>
+                    <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+                </select>
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>English language</mat-label>
+                    <input matInput type="text" formControlName="languageEn">
+
+                    <mat-error *ngIf="movieForm.get('languageEn')?.hasError('required')">
+                        Please enter a language
+                    </mat-error>
+                    <mat-error *ngIf="movieForm.get('languageEn')?.hasError('minlength')">
+                        Atleast 2 characters required
+                    </mat-error>
+                    <mat-error *ngIf="movieForm.get('languageEn')?.hasError('maxlength')">
+                        Max 29 characters allowed
+                    </mat-error>
+                    <mat-error *ngIf="movieForm.get('languageEn')?.hasError('pattern')">
+                        Only alphabets allowed
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>Hindi language</mat-label>
+                    <input matInput type="text" formControlName="languageHi">
+
+                    <mat-error *ngIf="movieForm.get('languageHi')?.hasError('required')">
+                        Please enter a language
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>Telugu language</mat-label>
+                    <input matInput type="text" formControlName="languageTe">
+
+                    <mat-error *ngIf="movieForm.get('languageTe')?.hasError('required')">
+                        Please enter a language
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]="movieLanguageForm.invalid">Update
+                    languages</button>
+            </mat-card-content>
+
+        </form>
+
+        <form [formGroup]="movieRatingForm" (ngSubmit)="updateMovieRating()">
+
+            <mat-card-header>
+                <mat-card-title>Update rating</mat-card-title>
+            </mat-card-header><br>
+
+            <mat-card-content>
+                <select class="form-select" formControlName="movieId">
+                    <option value="" selected>Select movie</option>
+                    <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+                </select>
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <mat-form-field>
+
+                    <mat-label>Rating</mat-label>
+                    <input matInput type="text" formControlName="rating">
+
+                    <mat-error *ngIf="movieForm.get('rating')?.hasError('required')">
+                        Please enter a rating
+                    </mat-error>
+                    <mat-error *ngIf="movieForm.get('rating')?.hasError('min')">
+                        min 1 required
+                    </mat-error>
+                    <mat-error *ngIf="movieForm.get('rating')?.hasError('max')">
+                        max 5 allowed
+                    </mat-error>
+
+                </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]="movieRatingForm.invalid">Update rating</button>
+            </mat-card-content>
+
+        </form>
+
+        <form [formGroup]="moviePhotoForm" (ngSubmit)="uploadMoviePhoto()">
+
+            <mat-card-header>
+                <mat-card-title>Upload photo</mat-card-title>
+            </mat-card-header><br>
+
+            <mat-card-content>
+
+                <select class="form-select" formControlName="movieId">
+                    <option value="" selected>Select movie</option>
+                    <option *ngFor="let movie of movies" value={{movie.id}}>{{movie.titleEn}}</option>
+                </select>
+
+            </mat-card-content><br>
+
+            <mat-card-content>
+
+                <input class="form-control" type="file" formControlName="photo" (change)="onFileChange($event)">
+
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]=" moviePhotoForm.invalid">Upload photo</button>
+            </mat-card-content>
+
+        </form>
+
+    </div>
+
+</mat-card>
+
+<mat-card class="d-flex flex-row justify-content-between align-items-center m-3" *ngFor="let movie of movies">
+
+    <mat-card-content>
+
+        <mat-card-header>
+            {{movie.titleEn}}
+        </mat-card-header><br>
+
+        <mat-card-content>
+            <button mat-raised-button color="warn" (click)="deleteMovie(movie.id)">Delete movie</button>
+        </mat-card-content>
+
+    </mat-card-content>
+
+    <mat-card-content>
+
+        <mat-card-content>
+            <img src="data:image/jpg;base64,{{movie.photo}}" alt="" />
+        </mat-card-content><br>
+
+        <mat-card-content *ngIf="movie.photo!== ''">
+            <button mat-raised-button color="warn" (click)="deletePhoto(movie.id)">Delete photo</button>
+        </mat-card-content>
+
+    </mat-card-content>
+
+</mat-card>

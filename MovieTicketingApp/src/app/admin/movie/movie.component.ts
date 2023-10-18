@@ -58,7 +58,14 @@ export class MovieComponent implements OnInit, OnDestroy {
 			descriptionEn: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
 			descriptionTe: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
 			descriptionHi: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
-			languageEn: new FormControl('', { updateOn: 'blur', validators: [Validators.required, Validators.pattern(/^[a-zA-Z]{2,20}$/m)] }),
+			languageEn: new FormControl('', {
+				updateOn: 'blur', validators: [
+					Validators.required,
+					Validators.minLength(2),
+					Validators.maxLength(20),
+					Validators.pattern(/^[a-zA-Z]{2,20}$/m)
+				]
+			}),
 			languageTe: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
 			languageHi: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
 			rating: new FormControl('', { validators: [Validators.required, Validators.max(5), Validators.min(1)] })
@@ -79,15 +86,22 @@ export class MovieComponent implements OnInit, OnDestroy {
 		});
 
 		this.movieLanguageForm = this.fb.group({
-			languageEn: new FormControl('', { updateOn: 'blur', validators: [Validators.required, Validators.pattern(/^[a-zA-Z]{2,20}$/m)] }),
+			languageEn: new FormControl('', {
+				updateOn: 'blur', validators: [
+					Validators.required,
+					Validators.pattern(/^[a-zA-Z]{2,20}$/m),
+					Validators.minLength(2),
+					Validators.maxLength(20)
+				]
+			}),
 			languageTe: new FormControl('', { validators: [Validators.required] }),
 			languageHi: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
 			movieId: new FormControl('', { validators: [Validators.required] })
 		});
 
 		this.movieRatingForm = this.fb.group({
-			rating: new FormControl('', { validators: [Validators.required] }),
-			movieId: new FormControl('', { validators: [Validators.required, Validators.max(5), Validators.min(1)] })
+			rating: new FormControl('', { validators: [Validators.required, Validators.max(5), Validators.min(1)] }),
+			movieId: new FormControl('', { validators: [Validators.required] })
 		});
 
 		this.moviePhotoForm = this.fb.group({
@@ -122,6 +136,9 @@ export class MovieComponent implements OnInit, OnDestroy {
 			titleTe: this.movieTitleForm.get('titleTe')?.value
 		};
 		const movieId = this.movieTitleForm.get('movieId')?.value;
+
+		if (movieId === 0)
+			return
 
 		this.subscription2 = this.adminMovieService.updateMovieTitle(movie, movieId).subscribe(data => this.reload());
 	}
