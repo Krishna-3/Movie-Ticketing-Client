@@ -1,23 +1,61 @@
-<select (change)="onLocationChange($event)">
-    <option value=""></option>
-    <option *ngFor="let city of cities" value={{city.id}}>{{city.city}}</option>
-</select>
+<div class="d-flex justify-content-center align-items-center my-5">
 
-<form [formGroup]="movieTheatreForm" (ngSubmit)="createMovieTheatre()">
+    <mat-card class="p-3">
 
-    <select formControlName="theatreId">
-        <option *ngFor="let theatre of theatresForCity" value={{theatre.id}}>{{theatre.nameEn}}</option>
-    </select>
-    <select formControlName="movieId">
-        <option *ngFor="let movieLocation of movieLocationsForCity" value={{movieLocation.movieId}}>
-            {{movieLocation.movie.titleEn}}</option>
-    </select>
-    <button [disabled]="movieTheatreForm.invalid">Create movie-theatre</button>
+        <mat-card-header>
+            <mat-card-title>Movie-theatre</mat-card-title>
+        </mat-card-header><br>
 
-</form>
+        <mat-card-content>
 
-<span *ngFor="let movieTheatre of movieTheatres$|async">
-    {{movieTheatre.movie.titleEn}},
-    {{movieTheatre.theatre.nameEn}}
-    <button (click)="deleteMovieTheatre(movieTheatre.id)">Delete movie-theatre</button><br>
-</span>
+            <select class="form-control" (change)="onLocationChange($event)" required>
+                <option value="">Select location</option>
+                <option *ngFor="let city of cities" value={{city.id}}>{{city.city}}</option>
+            </select>
+
+        </mat-card-content>
+
+        <form [formGroup]="movieTheatreForm" (ngSubmit)="createMovieTheatre()">
+
+            <mat-card-content>
+
+                <select class="form-control" formControlName="theatreId">
+                    <option value="">Select theatre</option>
+                    <option *ngFor="let theatre of theatresForCity" value={{theatre.id}}>{{theatre.nameEn}}</option>
+                </select>
+
+            </mat-card-content><br>
+
+            <mat-card-content>
+
+                <select class="form-control" formControlName="movieId">
+                    <option value="">Select movie</option>
+                    <option *ngFor="let movieLocation of movieLocationsForCity" value={{movieLocation.movieId}}>
+                        {{movieLocation.movie.titleEn}}</option>
+                </select>
+
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]="movieTheatreForm.invalid">Create
+                    movie-theatre</button>
+            </mat-card-content>
+
+        </form>
+
+    </mat-card>
+
+</div>
+
+<mat-card class="d-flex mx-5 my-3" *ngFor="let movieTheatre of movieTheatres$|async">
+
+    <mat-card-header>{{movieTheatre.movie.titleEn}} &nbsp; <span>-</span> &nbsp;
+        {{movieTheatre.theatre.nameEn}}</mat-card-header><br>
+
+
+    <mat-card-content>
+        <button mat-raised-button color="warn" (click)="deleteMovieTheatre(movieTheatre.id)">Delete
+            movie-theatre</button>
+    </mat-card-content>
+
+</mat-card>

@@ -1,17 +1,50 @@
-<form [formGroup]="movieLocationForm" (ngSubmit)="createMovieLocation()">
+<div class="d-flex justify-content-center align-items-center my-5">
 
-    <select formControlName="locationId">
-        <option *ngFor="let city of cities$|async" value={{city.id}}>{{city.city}}</option>
-    </select>
-    <select formControlName="movieId">
-        <option *ngFor="let movie of movies$|async" value={{movie.id}}>{{movie.titleEn}}</option>
-    </select>
-    <button [disabled]="movieLocationForm.invalid">Create movie-location</button>
+    <form [formGroup]="movieLocationForm" (ngSubmit)="createMovieLocation()">
 
-</form>
+        <mat-card class="p-3">
 
-<span *ngFor="let movieLocation of movieLocations$|async">
-    {{movieLocation.movie.titleEn}},
-    {{movieLocation.location.city}}
-    <button (click)="deleteMovieLocation(movieLocation.id)">Delete movie-location</button><br>
-</span>
+            <mat-card-header>
+                <mat-card-title>Movie-location</mat-card-title>
+            </mat-card-header><br>
+
+            <mat-card-content>
+
+                <select class="form-control" formControlName="locationId">
+                    <option value="">Select location</option>
+                    <option *ngFor="let city of cities$|async" value={{city.id}}>{{city.city}}</option>
+                </select>
+
+            </mat-card-content><br>
+
+            <mat-card-content>
+
+                <select class="form-control" formControlName="movieId">
+                    <option value="">Select movie</option>
+                    <option *ngFor="let movie of movies$|async" value={{movie.id}}>{{movie.titleEn}}</option>
+                </select>
+
+            </mat-card-content><br>
+
+            <mat-card-content>
+                <button mat-raised-button color="accent" [disabled]=" movieLocationForm.invalid">Create
+                    movie-location</button>
+            </mat-card-content>
+
+        </mat-card>
+
+    </form>
+
+</div>
+
+<mat-card class="d-flex mx-5 my-3" *ngFor="let movieLocation of movieLocations$|async">
+
+    <mat-card-header>{{movieLocation.movie.titleEn}} &nbsp; <span>-</span> &nbsp;
+        {{movieLocation.location.city}}</mat-card-header><br>
+
+    <mat-card-content>
+        <button mat-raised-button color="warn" (click)=" deleteMovieLocation(movieLocation.id)">Delete
+            movie-location</button>
+    </mat-card-content>
+
+</mat-card>
