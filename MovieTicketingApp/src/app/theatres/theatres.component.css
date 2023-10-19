@@ -1,0 +1,30 @@
+.theatre {
+    width: 60em;
+}
+
+.movie-photo {
+    height: 25em;
+    width: 20em;
+}
+
+.movie-details {
+    height: 42em;
+    width: 30em;
+}
+
+.movie-data {
+    width: 20em;
+}
+
+.date-radio input[type="radio"] {
+    display: none;
+}
+
+.date {
+    cursor: pointer;
+}
+
+.date-radio input[type="radio"]:checked+.date {
+    border: 1px solid #3f51b5;
+    color: #3f51b5;
+}

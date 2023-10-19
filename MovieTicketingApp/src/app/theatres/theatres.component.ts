@@ -6,6 +6,7 @@ import { Theatre, TheatreEn, TheatreHi, TheatreTe, } from '../interfaces/theatre
 import { ParseService } from '../services/parse.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LocalStorageService } from '../services/local-storage.service';
+import { Movie, MovieEn, MovieHi, MovieTe } from '../interfaces/movie';
 
 @Component({
 	selector: 'app-theatres',
@@ -14,7 +15,9 @@ import { LocalStorageService } from '../services/local-storage.service';
 })
 export class TheatresComponent implements OnInit, OnDestroy {
 
-	subscription!: Subscription;
+	subscription1!: Subscription;
+
+	subscription2!: Subscription;
 
 	theatres$!: Observable<TheatreEn[] | TheatreTe[] | TheatreHi[]>;
 
@@ -23,6 +26,10 @@ export class TheatresComponent implements OnInit, OnDestroy {
 	theatreForm!: FormGroup;
 
 	dates: string[] = [];
+
+	movie$!: Observable<MovieEn | MovieHi | MovieTe>;
+
+	movie!: Movie;
 
 	readonly timings: string[] = ['09:00:00', '13:00:00', '17:00:00', '22:00:00'];
 
@@ -48,10 +55,23 @@ export class TheatresComponent implements OnInit, OnDestroy {
 			})
 		);
 
-		this.subscription = this.theatres$.subscribe({
-			next: data => this.theatres = this.parseService.parseTheatres(data),
+		this.subscription1 = this.theatres$.subscribe({
+			next: data => {
+				this.theatres = this.parseService.parseTheatres(data);
+
+				this.movie$ = this.route.params.pipe(
+					switchMap(params => {
+						return this.movieService.getMovie(params['movieId']) as Observable<MovieEn | MovieHi | MovieTe>
+					})
+				);
+
+				this.subscription2 = this.movie$.subscribe({
+					next: data => this.movie = this.parseService.parseMovies([data])[0],
+					error: err => console.log(err)
+				})
+			},
 			error: err => console.log(err)
-		})
+		});
 	}
 
 	formatDate(date: Date) {
@@ -83,8 +103,11 @@ export class TheatresComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy(): void {
-		if (this.subscription) {
-			this.subscription.unsubscribe();
+		if (this.subscription1) {
+			this.subscription1.unsubscribe();
+		}
+		if (this.subscription2) {
+			this.subscription2.unsubscribe();
 		}
 	}
 }

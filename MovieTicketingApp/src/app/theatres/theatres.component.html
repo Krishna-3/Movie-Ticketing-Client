@@ -1,37 +1,99 @@
-<form [formGroup]="theatreForm">
-    <input type="radio" formControlName="date" value={{dates[0]}}>
-    {{dates[0].slice(0,2)}}
-    <input type="radio" formControlName="date" value={{dates[1]}}>
-    {{dates[1].slice(0,2)}}
-    <input type="radio" formControlName="date" value={{dates[2]}}>
-    {{dates[2].slice(0,2)}}
-    <input type="radio" formControlName="date" value={{dates[3]}}>
-    {{dates[3].slice(0,2)}}
-    <input type="radio" formControlName="date" value={{dates[4]}}>
-    {{dates[4].slice(0,2)}}
-    <input type="radio" formControlName="date" value={{dates[5]}}>
-    {{dates[5].slice(0,2)}}
-    <input type="radio" formControlName="date" value={{dates[6]}}>
-    {{dates[6].slice(0,2)}}
-</form>
+<div class="d-flex">
 
-<ul *ngFor="let theatre of theatres">
-    <li>{{theatre.name}}</li>
+    <mat-card class="p-3 mx-5 my-3 theatre">
 
-    <li *ngIf="theatreForm.get('date')?.value === dates[0]">
-        <span *ngFor="let t of todayTimings">
-            <a routerLink="theatre/{{theatre.id}}">
-                <button (click)="addTimeDate(t)">{{t}}</button>
-            </a>
-        </span>
-    </li>
+        <form class="mb-4" [formGroup]="theatreForm">
 
-    <li *ngIf="theatreForm.get('date')?.value !== dates[0]">
-        <span *ngFor="let t of timings">
-            <a routerLink="theatre/{{theatre.id}}">
-                <button (click)="addTimeDate(t)">{{t}}</button>
-            </a>
-        </span>
-    </li>
+            <div class="d-flex justify-content-evenly align-items-center">
 
-</ul>
+                <label for="radio{{dates[0]}}" class="date-radio">
+                    <input type="radio" id="radio{{dates[0]}}" formControlName="date" value={{dates[0]}}>
+                    <span class="px-3 py-1 card date">{{dates[0]}}</span>
+                </label>
+
+                <label for="radio{{dates[1]}}" class="date-radio">
+                    <input type="radio" id="radio{{dates[1]}}" formControlName="date" value={{dates[1]}}>
+                    <span class="px-3 py-1 card date">{{dates[1]}}</span>
+                </label>
+
+                <label for="radio{{dates[2]}}" class="date-radio">
+                    <input type="radio" id="radio{{dates[2]}}" formControlName="date" value={{dates[2]}}>
+                    <span class="px-3 py-1 card date">{{dates[2]}}</span>
+                </label>
+
+                <label for="radio{{dates[3]}}" class="date-radio">
+                    <input type="radio" id="radio{{dates[3]}}" formControlName="date" value={{dates[3]}}>
+                    <span class="px-3 py-1 card date">{{dates[3]}}</span>
+                </label>
+
+                <label for="radio{{dates[4]}}" class="date-radio">
+                    <input type="radio" id="radio{{dates[4]}}" formControlName="date" value={{dates[4]}}>
+                    <span class="px-3 py-1 card date">{{dates[4]}}</span>
+                </label>
+
+                <label for="radio{{dates[5]}}" class="date-radio">
+                    <input type="radio" id="radio{{dates[5]}}" formControlName="date" value={{dates[5]}}>
+                    <span class="px-3 py-1 card date">{{dates[5]}}</span>
+                </label>
+
+                <label for="radio{{dates[6]}}" class="date-radio">
+                    <input type="radio" id="radio{{dates[6]}}" formControlName="date" value={{dates[6]}}>
+                    <span class="px-3 py-1 card date">{{dates[6]}}</span>
+                </label>
+
+            </div>
+
+        </form>
+
+
+        <div *ngFor="let theatre of theatres">
+
+            <mat-card class="m-3 p-3" *ngIf="theatreForm.get('date')?.value === dates[0]">
+
+                <span class="mat-h2">{{theatre.name}}</span>
+
+                <div class="d-flex flex-row">
+                    <span class="mx-1" *ngFor="let t of todayTimings">
+                        <a routerLink="theatre/{{theatre.id}}">
+                            <button mat-raised-button color="primary" (click)="addTimeDate(t)">{{t.slice(0,5)}}</button>
+                        </a>
+                    </span>
+                </div>
+
+            </mat-card>
+
+            <mat-card class="m-3 p-3" *ngIf="theatreForm.get('date')?.value !== dates[0]">
+
+                <span class="mat-h2">{{theatre.name}}</span>
+
+                <div class="d-flex flex-row">
+                    <span class="mx-1" *ngFor="let t of timings">
+                        <a routerLink="theatre/{{theatre.id}}">
+                            <button mat-raised-button color="primary" (click)="addTimeDate(t)">{{t.slice(0,5)}}</button>
+                        </a>
+                    </span>
+                </div>
+
+            </mat-card>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="d-flex justify-content-center align-items-center movie-details my-3">
+
+        <div class="movie-photo mt-5">
+
+            <img class="rounded movie-photo" src="data:image/jpg;base64,{{movie.photo}}" alt="" />
+
+        </div>
+
+        <div class="movie-data my-3">
+            <span class="mat-h2 px-3">{{movie.title}}</span>
+            <p>{{movie.description}}</p>
+            <span><span class="mat-h4">Language: </span>{{movie.language}}</span><br>
+            <span><span class="mat-h4">Rating: </span>{{movie.rating}}</span>
+        </div>
+    </mat-card>
+
+</div>
