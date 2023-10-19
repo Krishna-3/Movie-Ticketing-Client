@@ -8,7 +8,7 @@
         <div class="navbar-collapse">
             <ul class="navbar-nav">
 
-                <li class="nav-item ps-2">
+                <li class="nav-item">
                     <a mat-flat-button color="primary" routerLink="/ticket" class="nav-link">Tickets</a>
                 </li>
 
@@ -20,6 +20,7 @@
             <li class="nav-item pe-3">
                 <form [formGroup]="languageForm">
                     <select class="form-select" formControlName="preferredLanguage" (change)="setLanguage()">
+                        <option value="" selected>Select language</option>
                         <option value="en">English</option>
                         <option value="te">Telugu</option>
                         <option value="hi">Hindi</option>
@@ -27,7 +28,7 @@
                 </form>
             </li>
 
-            <li class="nav-item pe-2">
+            <li class="nav-item">
                 <a mat-flat-button color="primary" routerLink="/profile" class="nav-link">Profile</a>
             </li>
 
@@ -35,11 +36,11 @@
                 <button mat-flat-button color="primary" (click)="logout()">logout</button>
             </li>
 
-            <li class="nav-item ps-2">
+            <li class="nav-item">
                 <a mat-flat-button color="primary" routerLink="/login" class="nav-link">login</a>
             </li>
 
-            <li class="nav-item ps-2">
+            <li class="nav-item">
                 <a mat-flat-button color="primary" routerLink="/signup" class="nav-link">signup</a>
             </li>
 
