@@ -15,6 +15,10 @@ export class MovieService {
         return this.http.get("https://localhost:7064/Movie");
     }
 
+    getMovie(movieId: number) {
+        return this.http.get("https://localhost:7064/Movie/" + movieId);
+    }
+
     getLocations() {
         return this.http.get("https://localhost:7064/Location");
     }
