@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MovieService } from '../services/movie.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { City, Movie } from '../interfaces/movie';
 import { ParseService } from '../services/parse.service';
 
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 		});
 
 		this.locationForm = this.fb.group({
-			selectedLocation: new FormControl('')
+			selectedLocation: new FormControl('', { validators: [Validators.required] })
 		});
 	}
 

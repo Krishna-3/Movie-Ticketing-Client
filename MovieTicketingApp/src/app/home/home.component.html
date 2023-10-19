@@ -1,18 +1,28 @@
-<form [formGroup]="locationForm">
-    <select formControlName="selectedLocation" (change)="getMovies()">
-        <option value="">---------</option>
-        <option *ngFor="let city of cities" value={{city.city}}>{{city.city}}</option>
-    </select>
-</form>
+<div class="d-flex flex-row-reverse align-items-center p-3">
 
-<main>
-    <ul *ngFor="let movie of movies">
-        <a routerLink="/movie/{{movie.id}}">
-            <img src="data:image/jpg;base64,{{movie.photo}}" />
-            <li>{{movie.title}}</li>
-            <li>{{movie.description}}</li>
-            <li>{{movie.language}}</li>
-            <li>{{movie.rating}}</li>
-        </a>
-    </ul>
+    <form [formGroup]="locationForm">
+        <select class="form-control" formControlName="selectedLocation" (change)="getMovies()">
+            <option value="" selected>Select location</option>
+            <option *ngFor="let city of cities" value={{city.city}}>{{city.city}}</option>
+        </select>
+    </form>
+
+</div>
+
+<main class="d-flex flex-wrap justify-content-evenly mx-5">
+
+    <div class="card movie my-5" *ngFor="let movie of movies">
+
+        <div>
+
+            <a class="nav-link movie" routerLink="/movie/{{movie.id}}">
+                <img class="rounded movie" src="data:image/jpg;base64,{{movie.photo}}" alt="" />
+            </a>
+
+        </div>
+
+        <span class="mat-h2 px-3">{{movie.title}}</span>
+
+    </div>
+
 </main>
