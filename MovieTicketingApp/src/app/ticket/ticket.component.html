@@ -1,11 +1,39 @@
 <div>
-    <ul *ngFor="let ticket of tickets">
-        <li>{{ticket.time}}</li>
-        <li>{{ticket.seat.seatNumber}}</li>
-        <li>{{ticket.movieTheatre.movie.title}}</li>
-        <li>{{ticket.movieTheatre.movie.language}}</li>
-        <li>{{ticket.movieTheatre.theatre.name}}</li>
-        <li>{{ticket.movieTheatre.theatre.location.city}}</li>
-        <img src="data:image/jpg;base64,{{ticket.movieTheatre.movie.photo}}" />
-    </ul>
+    <mat-card class="d-flex flex-row justify-content-between align-items-center ticket p-4"
+        *ngFor="let ticket of tickets">
+        <div>
+            <mat-card-content>
+                <span><strong>Date:</strong> {{ticket.time.toString().slice(0,10)}}</span>
+            </mat-card-content>
+
+            <mat-card-content>
+                <span><strong>Time:</strong> {{ticket.time.toString().slice(11,16)}}</span>
+            </mat-card-content>
+
+            <mat-card-content>
+                <span><strong>Seat number:</strong> {{ticket.seat.seatNumber}}</span>
+            </mat-card-content>
+
+            <mat-card-content>
+                <span><strong>Movie:</strong> {{ticket.movieTheatre.movie.title}}</span>
+            </mat-card-content>
+
+            <mat-card-content>
+                <span><strong>Language:</strong> {{ticket.movieTheatre.movie.language}}</span>
+            </mat-card-content>
+
+            <mat-card-content>
+                <span><strong>Theatre:</strong> {{ticket.movieTheatre.theatre.name}}</span>
+            </mat-card-content>
+
+            <mat-card-content>
+                <span><strong>Location:</strong> {{ticket.movieTheatre.theatre.location.city}}</span>
+            </mat-card-content>
+        </div>
+
+        <mat-card-content>
+            <img class="movie-image" src="data:image/jpg;base64,{{ticket.movieTheatre.movie.photo}}" />
+        </mat-card-content>
+
+    </mat-card>
 </div>
