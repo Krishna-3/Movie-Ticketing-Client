@@ -1,0 +1,75 @@
+.seat-count-radio input[type='radio'] {
+    display: none;
+}
+
+.seat-count-radio:hover span {
+    color: #3f51b5;
+    border-color: #3f51b5;
+}
+
+.seat-radio input[type='radio'] {
+    display: none;
+}
+
+.required-seat {
+    height: 30em;
+}
+
+.seat {
+    cursor: pointer;
+}
+
+.text-path {
+    font-size: 0.6rem;
+}
+
+.svg {
+    fill: none;
+}
+
+.seat-radio input[type="radio"]:checked+span svg rect {
+    fill: rgba(0, 255, 255, 0.425);
+}
+
+.seat-radio input[type="radio"]:disabled+span svg rect {
+    fill: #888;
+}
+
+.classes span:nth-child(10) {
+    margin-right: 2rem;
+}
+
+.classes span:nth-child(30) {
+    margin-right: 2rem;
+}
+
+.classes span:nth-child(50) {
+    margin-right: 2rem;
+}
+
+.classes span:nth-child(70) {
+    margin-right: 2rem;
+}
+
+.classes span:nth-child(90) {
+    margin-right: 2rem;
+}
+
+.divider {
+    height: 1px;
+    width: 50em;
+    border: 1px solid #dedede;
+}
+
+.screen {
+    height: 1.5em;
+    width: 8em;
+    border: 1px solid #dedede;
+    border-radius: 0.1em;
+}
+
+.screen-content {
+    height: 1.3em;
+    width: 7.7em;
+    background-color: rgba(0, 255, 255, 0.282);
+}

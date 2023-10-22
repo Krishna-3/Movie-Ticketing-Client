@@ -1,88 +1,1523 @@
-<div *ngIf="!requiredSeats">
+<div class="d-flex justify-content-center align-items-center required-seat" *ngIf="!requiredSeats">
 
-    <p>how many seats required?</p>
+    <mat-card class="p-3 mx-5 my-3 d-flex justify-content-center align-items-center">
 
-    <label for="1">1</label>
-    <input type="radio" name="requiredSeats" id="1" value="1" (change)="setRequiredSeats(1)">
-    <label for="2">2</label>
-    <input type="radio" name="requiredSeats" id="2" value="2" (change)="setRequiredSeats(2)">
-    <label for="3">3</label>
-    <input type="radio" name="requiredSeats" id="3" value="3" (change)="setRequiredSeats(3)">
-    <label for="4">4</label>
-    <input type="radio" name="requiredSeats" id="4" value="4" (change)="setRequiredSeats(4)">
-    <label for="5">5</label>
-    <input type="radio" name="requiredSeats" id="5" value="5" (change)="setRequiredSeats(5)">
+        <mat-card-header>
+            <mat-card-title>
+                How many seats required?
+            </mat-card-title>
+        </mat-card-header>
+
+        <div class="mt-4 d-flex">
+
+            <label class="seat-count-radio" for="1">
+                <input type="radio" name="requiredSeats" id="1" value="1" (change)="setRequiredSeats(1)">
+                <span class="mx-2 py-1 px-2 seat card">1</span>
+            </label>
+
+            <label class="seat-count-radio" for="2">
+                <input type="radio" name="requiredSeats" id="2" value="2" (change)="setRequiredSeats(2)">
+                <span class="mx-2 py-1 px-2 seat card">2</span>
+            </label>
+
+            <label class="seat-count-radio" for="3">
+                <input type="radio" name="requiredSeats" id="3" value="3" (change)="setRequiredSeats(3)">
+                <span class="mx-2 py-1 px-2 seat card">3</span>
+            </label>
+
+            <label class="seat-count-radio" for="4">
+                <input type="radio" name="requiredSeats" id="4" value="4" (change)="setRequiredSeats(4)">
+                <span class="mx-2 py-1 px-2 seat card">4</span>
+            </label>
+
+            <label class="seat-count-radio" for="5">
+                <input type="radio" name="requiredSeats" id="5" value="5" (change)="setRequiredSeats(5)">
+                <span class="mx-2 py-1 px-2 seat card">5</span>
+            </label>
+
+        </div>
+
+    </mat-card>
 
 </div>
+
 <br>
-<form [formGroup]="seatForm" *ngIf="seats && requiredSeats" (ngSubmit)="book()">
 
-    <div *ngIf="requiredSeats==1">
-        <span *ngFor="let seat of seats">
-            <input type="radio" formControlName="seat1" value="{{seat.id}}" appDisableControl
-                [condition]="seat.booked">{{seat.id}}
-        </span>
-    </div>
+<form [formGroup]="seatForm" *ngIf="seats && requiredSeats" id="theatre-form" (ngSubmit)="book()">
 
-    <div *ngIf="requiredSeats===2">
-        <span *ngFor="let i of seatCount">
-            <span *ngIf="i%2===0">
-                <input type="radio" formControlName="seat1" value="{{seats[i-2].id}}" appDisableControl
-                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
-                <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}" appDisableControl
-                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+    <div *ngIf="requiredSeats==1" class="d-flex flex-column justify-content-center align-items-center my-5">
+
+        <div class="divider mt-2 mb-4">First class</div>
+        <div class="classes">
+            <span *ngFor="let seat of seats.slice(0,60)">
+
+                <span *ngIf="seat.seatNumber.slice(1,seat.seatNumber.length) === '1'">
+                    {{seat.seatNumber.slice(0,1)}}
+                </span>
+
+                <label class="seat-radio" for="seat1{{seat.id}}">
+
+                    <input type="radio" id="seat1{{seat.id}}" formControlName="seat1" value="{{seat.id}}"
+                        appDisableControl [condition]="seat.booked">
+
+                    <span>
+
+                        <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                            <g>
+                                <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                    stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                <text class="text-path" x="43%" y="43%" text-anchor="middle" dominant-baseline="middle"
+                                    fill="black">
+                                    {{seat.seatNumber.slice(1,seat.seatNumber.length)}}
+                                </text>
+                            </g>
+
+                        </svg>
+
+                    </span>
+
+                </label>
+
+                <br *ngIf="seat.seatNumber.slice(1,seat.seatNumber.length)==='20'">
+
             </span>
-        </span>
-    </div>
+        </div>
 
-    <div *ngIf="requiredSeats===3">
-        <span *ngFor="let i of seatCount">
-            <span *ngIf="i%3===0">
-                <input type="radio" formControlName="seat1" value="{{seats[i-3].id}}" appDisableControl
-                    [condition]="seats[i-3].booked">{{seats[i-3].id}}
-                <input type="radio" formControlName="seat2" value="{{seats[i-2].id}}" appDisableControl
-                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
-                <input type="radio" formControlName="seat3" value="{{seats[i-1].id}}" appDisableControl
-                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+        <div class="divider mt-2 mb-4">Second class</div>
+        <div class="classes">
+            <span *ngFor="let seat of seats.slice(60,160)">
+
+                <span *ngIf="seat.seatNumber.slice(1,seat.seatNumber.length) === '1'">
+                    {{seat.seatNumber.slice(0,1)}}
+                </span>
+
+                <label class="seat-radio" for="seat1{{seat.id}}">
+
+                    <input type="radio" id="seat1{{seat.id}}" formControlName="seat1" value="{{seat.id}}"
+                        appDisableControl [condition]="seat.booked">
+
+                    <span>
+
+                        <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                            <g>
+                                <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                    stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                <text class="text-path" x="43%" y="43%" text-anchor="middle" dominant-baseline="middle"
+                                    fill="black">
+                                    {{seat.seatNumber.slice(1,seat.seatNumber.length)}}
+                                </text>
+                            </g>
+
+                        </svg>
+
+                    </span>
+
+                </label>
+
+                <br *ngIf="seat.seatNumber.slice(1,seat.seatNumber.length)==='20'">
+
             </span>
-        </span>
-    </div>
+        </div>
 
-    <div *ngIf="requiredSeats===4">
-        <span *ngFor="let i of seatCount">
-            <span *ngIf="i%4===0">
-                <input type="radio" formControlName="seat1" value="{{seats[i-4].id}}" appDisableControl
-                    [condition]="seats[i-4].booked">{{seats[i-4].id}}
-                <input type="radio" formControlName="seat2" value="{{seats[i-3].id}}" appDisableControl
-                    [condition]="seats[i-3].booked">{{seats[i-3].id}}
-                <input type="radio" formControlName="seat3" value="{{seats[i-2].id}}" appDisableControl
-                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
-                <input type="radio" formControlName="seat4" value="{{seats[i-1].id}}" appDisableControl
-                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+        <div class="divider mt-2 mb-4">Third class</div>
+        <div class="classes">
+            <span *ngFor="let seat of seats.slice(160,180)">
+
+                <span *ngIf="seat.seatNumber.slice(1,seat.seatNumber.length) === '1'">
+                    &nbsp;{{seat.seatNumber.slice(0,1)}}&nbsp;
+                </span>
+
+                <label class="seat-radio" for="seat1{{seat.id}}">
+
+                    <input type="radio" id="seat1{{seat.id}}" formControlName="seat1" value="{{seat.id}}"
+                        appDisableControl [condition]="seat.booked">
+
+                    <span>
+
+                        <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                            <g>
+                                <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                    stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                <text class="text-path" x="43%" y="43%" text-anchor="middle" dominant-baseline="middle"
+                                    fill="black">
+                                    {{seat.seatNumber.slice(1,seat.seatNumber.length)}}
+                                </text>
+                            </g>
+
+                        </svg>
+
+                    </span>
+
+                </label>
+
+                <br *ngIf="seat.seatNumber.slice(1,seat.seatNumber.length)==='20'">
+
             </span>
-        </span>
-        <input type="radio" formControlName="seat1" value="{{seats[seats.length-2].id}}" appDisableControl
-            [condition]="seats[seats.length-2].booked">{{seats[seats.length-2].id}}
-        <input type="radio" formControlName="seat2" value="{{seats[seats.length-1].id}}" appDisableControl
-            [condition]="seats[seats.length-1].booked">{{seats[seats.length-1].id}}
+        </div>
+
     </div>
 
-    <div *ngIf="requiredSeats===5">
-        <span *ngFor="let i of seatCount">
-            <span *ngIf="i%5===0">
-                <input type="radio" formControlName="seat1" value="{{seats[i-5].id}}" appDisableControl
-                    [condition]="seats[i-5].booked">{{seats[i-5].id}}
-                <input type="radio" formControlName="seat2" value="{{seats[i-4].id}}" appDisableControl
-                    [condition]="seats[i-4].booked">{{seats[i-4].id}}
-                <input type="radio" formControlName="seat3" value="{{seats[i-3].id}}" appDisableControl
-                    [condition]="seats[i-3].booked">{{seats[i-3].id}}
-                <input type="radio" formControlName="seat4" value="{{seats[i-2].id}}" appDisableControl
-                    [condition]="seats[i-2].booked">{{seats[i-2].id}}
-                <input type="radio" formControlName="seat5" value="{{seats[i-1].id}}" appDisableControl
-                    [condition]="seats[i-1].booked">{{seats[i-1].id}}
+    <div *ngIf="requiredSeats===2" class="d-flex flex-column justify-content-center align-items-center my-5">
+
+        <div class="divider mt-2 mb-4">First class</div>
+        <div class="classes">
+
+            <span *ngFor="let i of seatCount.slice(0,60)">
+                <span *ngIf="i%2===0">
+
+                    <span *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length) === '1'">
+                        {{seats[i-2].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat2{{seats[i-2].id}}">
+                        <input type="radio" id="seat2{{seats[i-2].id}}" formControlName="seat1"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <label class="seat-radio" for="seat2{{seats[i-1].id}}">
+                        <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}"
+                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+
+                </span>
             </span>
-        </span>
+
+        </div>
+
+        <div class="divider mt-2 mb-4">Second class</div>
+        <div class="classes">
+
+            <span *ngFor="let i of seatCount.slice(60,160)">
+                <span *ngIf="i%2===0">
+
+                    <span *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length) === '1'">
+                        {{seats[i-2].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat2{{seats[i-2].id}}">
+                        <input type="radio" id="seat2{{seats[i-2].id}}" formControlName="seat1"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <label class="seat-radio" for="seat2{{seats[i-1].id}}">
+                        <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}"
+                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+
+                </span>
+            </span>
+
+        </div>
+
+        <div class="divider mt-2 mb-4">Third class</div>
+        <div class="classes">
+
+            <span *ngFor="let i of seatCount.slice(160,180)">
+                <span *ngIf="i%2===0">
+
+                    <span *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length) === '1'">
+                        {{seats[i-2].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat2{{seats[i-2].id}}">
+                        <input type="radio" id="seat2{{seats[i-2].id}}" formControlName="seat1"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <label class="seat-radio" for="seat2{{seats[i-1].id}}">
+                        <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}"
+                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+
+                </span>
+            </span>
+
+        </div>
+
     </div>
 
-    <button>book ticket</button>
+    <div *ngIf="requiredSeats===3" class="d-flex flex-column justify-content-center align-items-center my-5">
+
+        <div class="divider mt-2 mb-4">First class</div>
+        <div>
+
+            <span *ngFor="let i of seatCount.slice(0,60)">
+                <span *ngIf="i%3===0">
+
+                    <span *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length) === '1'">
+                        {{seats[i-3].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-3].id}}">
+                        <input type="radio" id="seat3{{seats[i-3].id}}" formControlName="seat1"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <span *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length) === '1'">
+                        {{seats[i-2].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-2].id}}">
+                        <input type="radio" id="seat3{{seats[i-2].id}}" formControlName="seat2"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <span *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length) === '1'">
+                        {{seats[i-1].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-1].id}}">
+                        <input type="radio" id="seat3{{seats[i-1].id}}" formControlName="seat3"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+
+            </span>
+
+        </div>
+
+        <div class="divider mt-2 mb-4">Second class</div>
+        <div>
+
+            <span *ngFor="let i of seatCount.slice(60,160)">
+                <span *ngIf="i%3===0">
+
+                    <span *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length) === '1'">
+                        {{seats[i-3].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-3].id}}">
+                        <input type="radio" id="seat3{{seats[i-3].id}}" formControlName="seat1"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <span *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length) === '1'">
+                        {{seats[i-2].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-2].id}}">
+                        <input type="radio" id="seat3{{seats[i-2].id}}" formControlName="seat2"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <span *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length) === '1'">
+                        {{seats[i-1].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-1].id}}">
+                        <input type="radio" id="seat3{{seats[i-1].id}}" formControlName="seat3"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+
+            </span>
+
+            <label class="seat-radio" for="seat3{{seats[159].id}}">
+                <input type="radio" id="seat3{{seats[159].id}}" formControlName="seat1" value="{{seats[159].id}}"
+                    appDisableControl [condition]="seats[159].booked">
+                <span>
+
+                    <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                        <g>
+                            <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888" stroke-width="1.3"
+                                stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                            <text class="text-path" x="43%" y="43%" text-anchor="middle" dominant-baseline="middle"
+                                fill="black">
+                                {{seats[159].seatNumber.slice(1,seats[159].seatNumber.length)}}
+                            </text>
+                        </g>
+
+                    </svg>
+
+                </span>
+            </label>
+
+        </div>
+
+        <div class="divider mt-2 mb-4">Third class</div>
+        <div>
+
+            <span>I</span>
+
+            <label class="seat-radio" for="seat3{{seats[160].id}}">
+                <input type="radio" id="seat3{{seats[160].id}}" formControlName="seat2" value="{{seats[160].id}}"
+                    appDisableControl [condition]="seats[160].booked">
+                <span>
+
+                    <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                        <g>
+                            <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888" stroke-width="1.3"
+                                stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                            <text class="text-path" x="43%" y="43%" text-anchor="middle" dominant-baseline="middle"
+                                fill="black">
+                                {{seats[160].seatNumber.slice(1,seats[160].seatNumber.length)}}
+                            </text>
+                        </g>
+
+                    </svg>
+
+                </span>
+            </label>
+
+            <label class="seat-radio" for="seat3{{seats[161].id}}">
+                <input type="radio" id="seat3{{seats[161].id}}" formControlName="seat3" value="{{seats[161].id}}"
+                    appDisableControl [condition]="seats[161].booked">
+                <span>
+
+                    <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                        <g>
+                            <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888" stroke-width="1.3"
+                                stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                            <text class="text-path" x="43%" y="43%" text-anchor="middle" dominant-baseline="middle"
+                                fill="black">
+                                {{seats[161].seatNumber.slice(1,seats[161].seatNumber.length)}}
+                            </text>
+                        </g>
+
+                    </svg>
+
+                </span>
+            </label>
+
+            <span *ngFor="let i of seatCount.slice(162,180)">
+                <span *ngIf="i%3===0">
+
+                    <label class="seat-radio" for="seat3{{seats[i-3].id}}">
+                        <input type="radio" id="seat3{{seats[i-3].id}}" formControlName="seat1"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-2].id}}">
+                        <input type="radio" id="seat3{{seats[i-2].id}}" formControlName="seat2"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat3{{seats[i-1].id}}">
+                        <input type="radio" id="seat3{{seats[i-1].id}}" formControlName="seat3"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="requiredSeats===4" class="d-flex flex-column justify-content-center align-items-center my-5">
+
+        <div class=" divider mt-2 mb-4">First class</div>
+        <div>
+
+            <span *ngFor="let i of seatCount.slice(0,60)">
+                <span *ngIf="i%4===0">
+
+                    <span *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length) === '1'">
+                        {{seats[i-4].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-4].id}}">
+                        <input type="radio" id="seat4{{seats[i-4].id}}" formControlName="seat1"
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-3].id}}">
+                        <input type="radio" id="seat4{{seats[i-3].id}}" formControlName="seat2"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span> </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-2].id}}">
+                        <input type="radio" id="seat4{{seats[i-2].id}}" formControlName="seat3"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-1].id}}">
+                        <input type="radio" id="seat4{{seats[i-1].id}}" formControlName="seat4"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+            </span>
+
+        </div>
+
+        <div class="divider mt-2 mb-4">Second class</div>
+        <div>
+
+            <span *ngFor="let i of seatCount.slice(60,160)">
+                <span *ngIf="i%4===0">
+
+                    <span *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length) === '1'">
+                        {{seats[i-4].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-4].id}}">
+                        <input type="radio" id="seat4{{seats[i-4].id}}" formControlName="seat1"
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-3].id}}">
+                        <input type="radio" id="seat4{{seats[i-3].id}}" formControlName="seat2"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span> </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-2].id}}">
+                        <input type="radio" id="seat4{{seats[i-2].id}}" formControlName="seat3"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-1].id}}">
+                        <input type="radio" id="seat4{{seats[i-1].id}}" formControlName="seat4"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+            </span>
+
+        </div>
+
+        <div class="divider mt-2 mb-4">Third class</div>
+        <div>
+
+            <span *ngFor="let i of seatCount.slice(160,180)">
+                <span *ngIf="i%4===0">
+
+                    <span *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length) === '1'">
+                        {{seats[i-4].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-4].id}}">
+                        <input type="radio" id="seat4{{seats[i-4].id}}" formControlName="seat1"
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-3].id}}">
+                        <input type="radio" id="seat4{{seats[i-3].id}}" formControlName="seat2"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span> </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-2].id}}">
+                        <input type="radio" id="seat4{{seats[i-2].id}}" formControlName="seat3"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat4{{seats[i-1].id}}">
+                        <input type="radio" id="seat4{{seats[i-1].id}}" formControlName="seat4"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+            </span>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="requiredSeats===5" class="d-flex flex-column justify-content-center align-items-center my-5">
+
+        <div class="divider mt-2 mb-4">First class</div>
+        <div>
+            <span *ngFor="let i of seatCount.slice(0,60)">
+                <span *ngIf="i%5===0">
+
+                    <span *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length) === '1'">
+                        {{seats[i-5].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-5].id}}">
+                        <input type="radio" id="seat5{{seats[i-5].id}}" formControlName="seat1"
+                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-4].id}}">
+                        <input type="radio" id="seat5{{seats[i-4].id}}" formControlName="seat2"
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-3].id}}">
+                        <input type="radio" id="seat5{{seats[i-3].id}}" formControlName="seat3"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-2].id}}">
+                        <input type="radio" id="seat5{{seats[i-2].id}}" formControlName="seat4"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-1].id}}">
+                        <input type="radio" id="seat5{{seats[i-1].id}}" formControlName="seat5"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+
+            </span>
+        </div>
+
+        <div class="divider mt-2 mb-4">Second class</div>
+        <div>
+            <span *ngFor="let i of seatCount.slice(60,160)">
+                <span *ngIf="i%5===0">
+
+                    <span *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length) === '1'">
+                        {{seats[i-5].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-5].id}}">
+                        <input type="radio" id="seat5{{seats[i-5].id}}" formControlName="seat1"
+                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-4].id}}">
+                        <input type="radio" id="seat5{{seats[i-4].id}}" formControlName="seat2"
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-3].id}}">
+                        <input type="radio" id="seat5{{seats[i-3].id}}" formControlName="seat3"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-2].id}}">
+                        <input type="radio" id="seat5{{seats[i-2].id}}" formControlName="seat4"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-1].id}}">
+                        <input type="radio" id="seat5{{seats[i-1].id}}" formControlName="seat5"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+
+            </span>
+        </div>
+
+        <div class="divider mt-2 mb-4">Third class</div>
+        <div>
+            <span *ngFor="let i of seatCount.slice(160,180)">
+                <span *ngIf="i%5===0">
+
+                    <span *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length) === '1'">
+                        {{seats[i-5].seatNumber.slice(0,1)}}
+                    </span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-5].id}}">
+                        <input type="radio" id="seat5{{seats[i-5].id}}" formControlName="seat1"
+                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-5].seatNumber.slice(1,seats[i-5].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-4].id}}">
+                        <input type="radio" id="seat5{{seats[i-4].id}}" formControlName="seat2"
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-4].seatNumber.slice(1,seats[i-4].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-3].id}}">
+                        <input type="radio" id="seat5{{seats[i-3].id}}" formControlName="seat3"
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-3].seatNumber.slice(1,seats[i-3].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-2].id}}">
+                        <input type="radio" id="seat5{{seats[i-2].id}}" formControlName="seat4"
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-2].seatNumber.slice(1,seats[i-2].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                    <label class="seat-radio" for="seat5{{seats[i-1].id}}">
+                        <input type="radio" id="seat5{{seats[i-1].id}}" formControlName="seat5"
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                        <span>
+
+                            <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
+
+                                <g>
+                                    <rect id="seat" x="4" y="4" width="16" height="16" rx="2" stroke="#888"
+                                        stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></rect>
+
+                                    <text class="text-path" x="43%" y="43%" text-anchor="middle"
+                                        dominant-baseline="middle" fill="black">
+                                        {{seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)}}
+                                    </text>
+                                </g>
+
+                            </svg>
+
+                        </span>
+                    </label>
+
+                    <br *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='20'">
+                    <span
+                        *ngIf="seats[i-1].seatNumber.slice(1,seats[i-1].seatNumber.length)==='10'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+                </span>
+
+            </span>
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="screen d-flex justify-content-center align-items-center">
+            <div class="screen-content d-flex justify-content-center align-items-center">screen</div>
+        </div>
+    </div>
+
+    <div class=" d-flex justify-content-end mx-5">
+        <button mat-raised-button color="accent">Book tickets</button>
+    </div>
+
 </form>

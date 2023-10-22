@@ -52,7 +52,7 @@ export class TheatreComponent implements OnInit, OnDestroy {
 			next: data => {
 				this.seats = data as Seat[];
 				for (let i = 0; i < this.seats.length; i++) {
-					this.seatCount.push(this.seats[i].id)
+					this.seatCount.push(i + 1)
 				}
 			},
 			error: err => console.log(err)
