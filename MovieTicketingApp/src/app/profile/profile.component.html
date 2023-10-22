@@ -22,7 +22,7 @@
                                 Please enter a username
                             </mat-error>
                             <mat-error *ngIf="usernameForm.get('username')?.hasError('minlength')">
-                                Min <strong>7</strong> characters required
+                                Min <strong>8</strong> characters required
                             </mat-error>
                             <mat-error *ngIf="usernameForm.get('username')?.hasError('pattern')">
                                 Should have A-Z,a-z,0-9,_ only
@@ -64,7 +64,7 @@
                                 Please enter a password
                             </mat-error>
                             <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('minlength')">
-                                Min <strong>6</strong> characters required
+                                Min <strong>7</strong> characters required
                             </mat-error>
                             <mat-error *ngIf="passwordForm.get('newPassword')?.hasError('pattern')">
                                 Should consist A-Z,a-z,0-9
