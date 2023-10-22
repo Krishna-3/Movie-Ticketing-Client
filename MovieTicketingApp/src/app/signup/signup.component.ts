@@ -29,7 +29,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 					Validators.required,
 					Validators.pattern(/^[A-Za-z][A-Za-z_0-9]{7,30}$/m),
 					Validators.maxLength(30),
-					Validators.minLength(7)
+					Validators.minLength(8)
 				]
 			}),
 
@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 				validators: [
 					Validators.required,
 					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/m),
-					Validators.minLength(6)
+					Validators.minLength(7)
 				]
 			}),
 
@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 				validators: [
 					Validators.required,
 					Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/m),
-					Validators.minLength(6)
+					Validators.minLength(7)
 				]
 			}),
 
