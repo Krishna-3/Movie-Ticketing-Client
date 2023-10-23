@@ -51,9 +51,11 @@ export class RequestInterceptor implements HttpInterceptor {
 					}
 				}
 				return throwError(() => {
-					this.localStorageService.remove('accessToken');
-					this.localStorageService.remove('refreshToken');
-					this.router.navigate(['/login']);
+					if (error.status === 401) {
+						this.localStorageService.remove('accessToken');
+						this.localStorageService.remove('refreshToken');
+						this.router.navigate(['/login']);
+					}
 					error;
 				});
 			})
