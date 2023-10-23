@@ -32,8 +32,14 @@
         </div>
 
         <mat-card-content>
-            <img class="movie-image" src="data:image/jpg;base64,{{ticket.movieTheatre.movie.photo}}" />
+            <img class="movie-" src="data:image/jpg;base64,{{ticket.movieTheatre.movie.photo}}" />
         </mat-card-content>
 
     </mat-card>
+</div>
+
+<div *ngIf="err!==null" class="d-flex justify-content-center nav nav-underline">
+    <a class="nav-link" routerLink="/">
+        <span class="mat-h2">No tickets, book now!</span>
+    </a>
 </div>
