@@ -8,12 +8,14 @@ import {
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { JwtService } from './jwt.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
 
 	constructor(private localStorageService: LocalStorageService,
-		private jwtService: JwtService) { }
+		private jwtService: JwtService,
+		private router: Router) { }
 
 	intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 		const token = this.localStorageService.get("accessToken");
@@ -48,7 +50,12 @@ export class RequestInterceptor implements HttpInterceptor {
 						}
 					}
 				}
-				return throwError(() => error);
+				return throwError(() => {
+					this.localStorageService.remove('accessToken');
+					this.localStorageService.remove('refreshToken');
+					this.router.navigate(['/login']);
+					error;
+				});
 			})
 		)
 	}
