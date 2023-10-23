@@ -57,7 +57,13 @@ export class TheatreComponent implements OnInit, OnDestroy {
 					this.seatCount.push(i + 1)
 				}
 			},
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 
 		this.seatForm = this.fb.group({
@@ -87,7 +93,13 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 		this.subscription2 = this.ticketService.bookTicket(this.ticketService.ticket, this.bookedSeats).subscribe({
 			next: data => this.router.navigate(['/ticket']),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 

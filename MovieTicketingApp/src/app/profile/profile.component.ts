@@ -67,7 +67,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		const username = this.usernameForm.get('username')?.value;
 
 		this.subscription1 = this.userService.changeUsername(userId, username).subscribe({
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 
@@ -81,7 +87,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		}
 
 		this.subscription2 = this.userService.changePassword(userId, passwords).subscribe({
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 
@@ -94,7 +106,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				this.localStorageService.remove('refreshToken');
 				this.router.navigate(['/signup']);
 			},
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 

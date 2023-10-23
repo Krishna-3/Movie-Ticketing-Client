@@ -34,7 +34,13 @@ export class HomeComponent implements OnInit, OnDestroy {
 		this.subscription2 = this.movieService.getLocations().subscribe(
 			{
 				next: data => this.cities = data as City[],
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 
 		this.locationForm = this.fb.group({
@@ -52,10 +58,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 						next: data => {
 							this.movies = this.parseService.parseMovies(data);
 						},
-						error: err => this.snackbar.open('error occured', 'ok')
+						error: err => {
+							if ('message' in err.error)
+								return this.snackbar.open(err.error.message[0], 'ok')
+							if ('title' in err.error)
+								return this.snackbar.open(err.error.title, 'ok')
+							return this.snackbar.open('error occured', 'ok')
+						}
 					})
 				},
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			})
 		}
 	}

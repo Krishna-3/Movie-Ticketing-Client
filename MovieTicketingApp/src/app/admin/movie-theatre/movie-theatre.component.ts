@@ -58,22 +58,46 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 		this.subscription1 = this.adminMovieService.getMovies().subscribe(
 			{
 				next: data => this.movies = data as MovieModel[],
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 		this.subscription2 = this.adminTheatreService.getTheatres().subscribe(
 			{
 				next: data => this.theatres = data as TheatreModel[],
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 		this.subscription3 = this.adminLocationService.getLocations().subscribe(
 			{
 				next: data => this.cities = data as City[],
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 		this.subscription4 = this.adminMovieLocationServie.getMovieLocations().subscribe(
 			{
 				next: data => this.movieLocations = data as MovieLocationModel[],
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 		this.movieTheatres$ = this.adminMovieTheatreService.getMovieTheatres() as Observable<MovieTheatreModel[]>;
 
@@ -97,7 +121,13 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 		this.subscription5 = this.adminMovieTheatreService.createMovieTheatre(movieTheatreId).subscribe(
 			{
 				next: data => this.reload(),
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 	}
 
@@ -105,7 +135,13 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 		this.subscription6 = this.adminMovieTheatreService.deleteMovieTheatre(mtId).subscribe(
 			{
 				next: data => this.reload(),
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 	}
 

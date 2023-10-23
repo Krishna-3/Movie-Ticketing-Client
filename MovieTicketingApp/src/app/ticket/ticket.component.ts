@@ -29,7 +29,11 @@ export class TicketComponent implements OnInit, OnDestroy {
 			next: data => this.tickets = this.parseService.parseTickets(this.localStorageService.get('language') as string, data),
 			error: err => {
 				this.err = err.status;
-				this.snackbar.open('error occured', 'ok')
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
 			}
 		});
 	}

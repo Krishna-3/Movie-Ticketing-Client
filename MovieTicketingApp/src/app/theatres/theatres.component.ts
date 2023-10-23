@@ -69,10 +69,22 @@ export class TheatresComponent implements OnInit, OnDestroy {
 
 				this.subscription2 = this.movie$.subscribe({
 					next: data => this.movie = this.parseService.parseMovies([data])[0],
-					error: err => this.snackbar.open('error occured', 'ok')
+					error: err => {
+						if ('message' in err.error)
+							return this.snackbar.open(err.error.message[0], 'ok')
+						if ('title' in err.error)
+							return this.snackbar.open(err.error.title, 'ok')
+						return this.snackbar.open('error occured', 'ok')
+					}
 				})
 			},
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 

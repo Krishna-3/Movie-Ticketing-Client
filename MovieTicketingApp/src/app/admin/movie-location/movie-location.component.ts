@@ -53,14 +53,26 @@ export class MovieLocationComponent implements OnInit, OnDestroy {
 
 		this.subscription1 = this.adminMovieLocationService.createMovieLocation(movieLocation).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 
 	deleteMovieLocation(mlId: number) {
 		this.subscription2 = this.adminMovieLocationService.deleteMovieLocation(mlId).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 

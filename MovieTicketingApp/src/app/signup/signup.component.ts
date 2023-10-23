@@ -66,7 +66,13 @@ export class SignupComponent implements OnInit, OnDestroy {
 				this.router.navigate(['/login']);
 				this.signupForm.reset();
 			},
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 

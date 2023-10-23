@@ -68,7 +68,13 @@ export class LocationComponent implements OnInit, OnDestroy {
 
 		this.subscription1 = this.adminLocationService.createLocation(location).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 
@@ -83,14 +89,26 @@ export class LocationComponent implements OnInit, OnDestroy {
 
 		this.subscription2 = this.adminLocationService.updateLocation(location).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 
 	deleteLocation(cityId: number) {
 		this.subscription3 = this.adminLocationService.deleteLocation(cityId).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 

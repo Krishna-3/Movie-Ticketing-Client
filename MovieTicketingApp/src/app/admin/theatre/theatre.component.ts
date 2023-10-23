@@ -44,7 +44,13 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		this.subscription5 = this.adminTheatreService.getTheatres().subscribe(
 			{
 				next: data => this.theatres = data as TheatreModel[],
-				error: err => this.snackbar.open('error occured', 'ok')
+				error: err => {
+					if ('message' in err.error)
+						return this.snackbar.open(err.error.message[0], 'ok')
+					if ('title' in err.error)
+						return this.snackbar.open(err.error.title, 'ok')
+					return this.snackbar.open('error occured', 'ok')
+				}
 			});
 		this.cities$ = this.adminLocationService.getLocations() as Observable<City[]>;
 
@@ -92,7 +98,13 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 		this.subscription1 = this.adminTheatreService.createTheatre(theatreName, locationId).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 
@@ -106,7 +118,13 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 		this.subscription2 = this.adminTheatreService.updateTheatreName(theatreName, theatreId).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		})
 	}
 
@@ -116,14 +134,26 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 		this.subscription3 = this.adminTheatreService.updateTheatreLocation(locationId, theatreId).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		})
 	}
 
 	deleteTheatre(theatreId: number) {
 		this.subscription4 = this.adminTheatreService.deleteTheatre(theatreId).subscribe({
 			next: data => this.reload(),
-			error: err => this.snackbar.open('error occured', 'ok')
+			error: err => {
+				if ('message' in err.error)
+					return this.snackbar.open(err.error.message[0], 'ok')
+				if ('title' in err.error)
+					return this.snackbar.open(err.error.title, 'ok')
+				return this.snackbar.open('error occured', 'ok')
+			}
 		});
 	}
 
