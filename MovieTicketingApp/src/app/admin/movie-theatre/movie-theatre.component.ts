@@ -94,14 +94,17 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 			theatreId: this.movieTheatreForm.get('theatreId')?.value
 		};
 
-		this.subscription5 = this.adminMovieTheatreService.createMovieTheatre(movieTheatreId).subscribe({
-			error: err => this.snackbar.open('error occured', 'ok')
-		});
+		this.subscription5 = this.adminMovieTheatreService.createMovieTheatre(movieTheatreId).subscribe(
+			{
+				next: data => this.reload(),
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
 	}
 
 	deleteMovieTheatre(mtId: number) {
 		this.subscription6 = this.adminMovieTheatreService.deleteMovieTheatre(mtId).subscribe(
 			{
+				next: data => this.reload(),
 				error: err => this.snackbar.open('error occured', 'ok')
 			});
 	}
