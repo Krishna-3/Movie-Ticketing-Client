@@ -8,7 +8,7 @@ export const userGuard: CanActivateFn = (route, state) => {
 	const localStorageService = inject(LocalStorageService);
 	const jwtService = inject(JwtService);
 
-	const token = localStorageService.get('accessToken') as string;
+	const token = localStorageService.get('refreshToken') as string;
 	if (token === null)
 		return router.navigate(['/login'])
 

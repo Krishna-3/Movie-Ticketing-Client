@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
 	}
 
 	isLoggedin() {
-		const token = this.localStorageService.get('accessToken') as string;
+		const token = this.localStorageService.get('refreshToken') as string;
 		if (token === null)
 			return false
 
