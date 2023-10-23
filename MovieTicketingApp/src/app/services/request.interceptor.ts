@@ -56,7 +56,7 @@ export class RequestInterceptor implements HttpInterceptor {
 						this.localStorageService.remove('refreshToken');
 						this.router.navigate(['/login']);
 					}
-					error;
+					return error;
 				});
 			})
 		)
