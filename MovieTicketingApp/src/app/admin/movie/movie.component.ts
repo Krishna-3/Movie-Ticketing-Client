@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { MovieDescription, MovieLanguage, MovieModel, MovieTitle } from '../interfaces/adminInterfaces';
 import { AdminMovieService } from '../services/admin-movie.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-movie',
@@ -46,10 +47,15 @@ export class MovieComponent implements OnInit, OnDestroy {
 
 	constructor(private fb: FormBuilder,
 		private adminMovieService: AdminMovieService,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
-		this.subscription8 = this.adminMovieService.getMovies().subscribe(data => this.movies = data as MovieModel[]);
+		this.subscription8 = this.adminMovieService.getMovies().subscribe(
+			{
+				next: data => this.movies = data as MovieModel[],
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
 
 		this.movieForm = this.fb.group({
 			titleEn: new FormControl('', { updateOn: 'blur', validators: [Validators.required] }),
@@ -126,7 +132,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 			id: 0
 		};
 
-		this.subscription1 = this.adminMovieService.createMovie(movie).subscribe(data => this.reload());
+		this.subscription1 = this.adminMovieService.createMovie(movie).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	updateMovieTitle() {
@@ -140,7 +149,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 		if (movieId === 0)
 			return
 
-		this.subscription2 = this.adminMovieService.updateMovieTitle(movie, movieId).subscribe(data => this.reload());
+		this.subscription2 = this.adminMovieService.updateMovieTitle(movie, movieId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	updateMovieDescription() {
@@ -151,7 +163,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 		};
 		const movieId = this.movieDescriptionForm.get('movieId')?.value;
 
-		this.subscription3 = this.adminMovieService.updateMovieDescription(movie, movieId).subscribe(data => this.reload());
+		this.subscription3 = this.adminMovieService.updateMovieDescription(movie, movieId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	updateMovieLanguage() {
@@ -162,14 +177,20 @@ export class MovieComponent implements OnInit, OnDestroy {
 		};
 		const movieId = this.movieLanguageForm.get('movieId')?.value;
 
-		this.subscription4 = this.adminMovieService.updateMovieLanguage(movie, movieId).subscribe(data => this.reload());
+		this.subscription4 = this.adminMovieService.updateMovieLanguage(movie, movieId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	updateMovieRating() {
 		const rating = this.movieRatingForm.get('rating')?.value;
 		const movieId = this.movieRatingForm.get('movieId')?.value;
 
-		this.subscription5 = this.adminMovieService.updateMovieRating(rating, movieId).subscribe(data => this.reload());
+		this.subscription5 = this.adminMovieService.updateMovieRating(rating, movieId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	uploadMoviePhoto() {
@@ -177,15 +198,24 @@ export class MovieComponent implements OnInit, OnDestroy {
 		photo.append('photo', this.moviePhotoForm.get('photo')?.value);
 		const movieId = this.moviePhotoForm.get('movieId')?.value;
 
-		this.subscription6 = this.adminMovieService.uploadPhoto(photo, movieId).subscribe(data => this.reload());
+		this.subscription6 = this.adminMovieService.uploadPhoto(photo, movieId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	deleteMovie(movieId: number) {
-		this.subscription7 = this.adminMovieService.deleteMovie(movieId).subscribe(data => this.reload());
+		this.subscription7 = this.adminMovieService.deleteMovie(movieId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	deletePhoto(movieId: number) {
-		this.subscription9 = this.adminMovieService.deletePhoto(movieId).subscribe(data => this.reload());
+		this.subscription9 = this.adminMovieService.deletePhoto(movieId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	reload() {

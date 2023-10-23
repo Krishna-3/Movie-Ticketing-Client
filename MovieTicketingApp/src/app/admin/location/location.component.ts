@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AdminLocationService } from '../services/admin-location.service';
 import { Router } from '@angular/router';
 import { City } from '../interfaces/adminInterfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-location',
@@ -26,7 +27,8 @@ export class LocationComponent implements OnInit, OnDestroy {
 
 	constructor(private fb: FormBuilder,
 		private adminLocationService: AdminLocationService,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
 		this.cities$ = this.adminLocationService.getLocations() as Observable<City[]>;
@@ -64,7 +66,10 @@ export class LocationComponent implements OnInit, OnDestroy {
 			id: 0
 		}
 
-		this.subscription1 = this.adminLocationService.createLocation(location).subscribe(data => this.reload());
+		this.subscription1 = this.adminLocationService.createLocation(location).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open(err.error.message[0], 'ok')
+		});
 	}
 
 	updateLocation() {
@@ -76,11 +81,17 @@ export class LocationComponent implements OnInit, OnDestroy {
 			id: this.locationUpdateForm.get('cityId')?.value
 		}
 
-		this.subscription2 = this.adminLocationService.updateLocation(location).subscribe(data => this.reload());
+		this.subscription2 = this.adminLocationService.updateLocation(location).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open(err.error.message[0], 'ok')
+		});
 	}
 
 	deleteLocation(cityId: number) {
-		this.subscription3 = this.adminLocationService.deleteLocation(cityId).subscribe(data => this.reload());
+		this.subscription3 = this.adminLocationService.deleteLocation(cityId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open(err.error.message[0], 'ok')
+		});
 	}
 
 	reload() {

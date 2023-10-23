@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { CustomValidator } from '../validators/customValidator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-signup',
@@ -18,7 +19,8 @@ export class SignupComponent implements OnInit, OnDestroy {
 
 	constructor(private fb: FormBuilder,
 		private userService: UserService,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
 		this.signupForm = this.fb.group({
@@ -64,8 +66,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 				this.router.navigate(['/login']);
 				this.signupForm.reset();
 			},
-			error: err =>
-				console.log(err)
+			error: err => this.snackbar.open('error occured', 'ok')
 		});
 	}
 

@@ -7,6 +7,7 @@ import { ParseService } from '../services/parse.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { LocalStorageService } from '../services/local-storage.service';
 import { Movie, MovieEn, MovieHi, MovieTe } from '../interfaces/movie';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-theatres',
@@ -39,7 +40,8 @@ export class TheatresComponent implements OnInit, OnDestroy {
 		private route: ActivatedRoute,
 		private parseService: ParseService,
 		private fb: FormBuilder,
-		private localStorageService: LocalStorageService) { }
+		private localStorageService: LocalStorageService,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
 		this.getTodayTimings();
@@ -67,10 +69,10 @@ export class TheatresComponent implements OnInit, OnDestroy {
 
 				this.subscription2 = this.movie$.subscribe({
 					next: data => this.movie = this.parseService.parseMovies([data])[0],
-					error: err => console.log(err)
+					error: err => this.snackbar.open('error occured', 'ok')
 				})
 			},
-			error: err => console.log(err)
+			error: err => this.snackbar.open('error occured', 'ok')
 		});
 	}
 

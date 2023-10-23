@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from '../services/local-storage.service';
 import { UserLoginResponse } from '../interfaces/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	constructor(private fb: FormBuilder,
 		private userService: UserService,
 		private router: Router,
-		private localStorageService: LocalStorageService) { }
+		private localStorageService: LocalStorageService,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
@@ -41,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 				this.loginForm.reset();
 			},
 			error: err =>
-				console.log(err)
+				this.snackbar.open('error occured', 'ok')
 		});
 	}
 

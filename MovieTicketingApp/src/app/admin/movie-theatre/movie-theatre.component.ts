@@ -8,6 +8,7 @@ import { AdminLocationService } from '../services/admin-location.service';
 import { AdminMovieTheatreService } from '../services/admin-movie-theatre.service';
 import { AdminMovieService } from '../services/admin-movie.service';
 import { AdminMovieLocationService } from '../services/admin-movie-location.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-movie-theatre',
@@ -50,13 +51,30 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 		private adminMovieService: AdminMovieService,
 		private adminMovieLocationServie: AdminMovieLocationService,
 		private adminTheatreService: AdminTheatreService,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
-		this.subscription1 = this.adminMovieService.getMovies().subscribe(data => this.movies = data as MovieModel[]);
-		this.subscription2 = this.adminTheatreService.getTheatres().subscribe(data => this.theatres = data as TheatreModel[]);
-		this.subscription3 = this.adminLocationService.getLocations().subscribe(data => this.cities = data as City[]);
-		this.subscription4 = this.adminMovieLocationServie.getMovieLocations().subscribe(data => this.movieLocations = data as MovieLocationModel[]);
+		this.subscription1 = this.adminMovieService.getMovies().subscribe(
+			{
+				next: data => this.movies = data as MovieModel[],
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
+		this.subscription2 = this.adminTheatreService.getTheatres().subscribe(
+			{
+				next: data => this.theatres = data as TheatreModel[],
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
+		this.subscription3 = this.adminLocationService.getLocations().subscribe(
+			{
+				next: data => this.cities = data as City[],
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
+		this.subscription4 = this.adminMovieLocationServie.getMovieLocations().subscribe(
+			{
+				next: data => this.movieLocations = data as MovieLocationModel[],
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
 		this.movieTheatres$ = this.adminMovieTheatreService.getMovieTheatres() as Observable<MovieTheatreModel[]>;
 
 		this.movieTheatreForm = this.fb.group({
@@ -76,11 +94,16 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 			theatreId: this.movieTheatreForm.get('theatreId')?.value
 		};
 
-		this.subscription5 = this.adminMovieTheatreService.createMovieTheatre(movieTheatreId).subscribe();
+		this.subscription5 = this.adminMovieTheatreService.createMovieTheatre(movieTheatreId).subscribe({
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	deleteMovieTheatre(mtId: number) {
-		this.subscription6 = this.adminMovieTheatreService.deleteMovieTheatre(mtId).subscribe();
+		this.subscription6 = this.adminMovieTheatreService.deleteMovieTheatre(mtId).subscribe(
+			{
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
 	}
 
 	reload() {

@@ -4,6 +4,7 @@ import { MovieService } from '../services/movie.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { City, Movie } from '../interfaces/movie';
 import { ParseService } from '../services/parse.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-home',
@@ -26,12 +27,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 	constructor(private movieService: MovieService,
 		private fb: FormBuilder,
-		private parseService: ParseService) { }
+		private parseService: ParseService,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
-		this.subscription2 = this.movieService.getLocations().subscribe(data => {
-			this.cities = data as City[];
-		});
+		this.subscription2 = this.movieService.getLocations().subscribe(
+			{
+				next: data => this.cities = data as City[],
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
 
 		this.locationForm = this.fb.group({
 			selectedLocation: new FormControl('', { validators: [Validators.required] })
@@ -48,9 +52,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 						next: data => {
 							this.movies = this.parseService.parseMovies(data);
 						},
-						error: err => console.log(err)
+						error: err => this.snackbar.open('error occured', 'ok')
 					})
-				}
+				},
+				error: err => this.snackbar.open('error occured', 'ok')
 			})
 		}
 	}

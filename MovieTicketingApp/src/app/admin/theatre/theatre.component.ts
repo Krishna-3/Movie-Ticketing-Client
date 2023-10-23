@@ -5,6 +5,7 @@ import { City, TheatreModel, TheatreName } from '../interfaces/adminInterfaces';
 import { AdminTheatreService } from '../services/admin-theatre.service';
 import { Router } from '@angular/router';
 import { AdminLocationService } from '../services/admin-location.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-theatre',
@@ -36,10 +37,15 @@ export class TheatreComponent implements OnInit, OnDestroy {
 	constructor(private fb: FormBuilder,
 		private adminTheatreService: AdminTheatreService,
 		private adminLocationService: AdminLocationService,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
-		this.subscription5 = this.adminTheatreService.getTheatres().subscribe(data => this.theatres = data as TheatreModel[]);
+		this.subscription5 = this.adminTheatreService.getTheatres().subscribe(
+			{
+				next: data => this.theatres = data as TheatreModel[],
+				error: err => this.snackbar.open('error occured', 'ok')
+			});
 		this.cities$ = this.adminLocationService.getLocations() as Observable<City[]>;
 
 		this.theatreForm = this.fb.group({
@@ -84,7 +90,10 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		};
 		const locationId = this.theatreForm.get('locationId')?.value;
 
-		this.subscription1 = this.adminTheatreService.createTheatre(theatreName, locationId).subscribe(data => this.reload());
+		this.subscription1 = this.adminTheatreService.createTheatre(theatreName, locationId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	updateTheatreName() {
@@ -95,18 +104,27 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		};
 		const theatreId = this.theatreNameForm.get('theatreId')?.value;
 
-		this.subscription2 = this.adminTheatreService.updateTheatreName(theatreName, theatreId).subscribe(data => this.reload())
+		this.subscription2 = this.adminTheatreService.updateTheatreName(theatreName, theatreId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		})
 	}
 
 	updateTheatreLocation() {
 		const locationId = this.theatreLocationForm.get('locationId')?.value;
 		const theatreId = this.theatreLocationForm.get('theatreId')?.value;
 
-		this.subscription3 = this.adminTheatreService.updateTheatreLocation(locationId, theatreId).subscribe(data => this.reload())
+		this.subscription3 = this.adminTheatreService.updateTheatreLocation(locationId, theatreId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		})
 	}
 
 	deleteTheatre(theatreId: number) {
-		this.subscription4 = this.adminTheatreService.deleteTheatre(theatreId).subscribe(data => this.reload());
+		this.subscription4 = this.adminTheatreService.deleteTheatre(theatreId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	reload() {

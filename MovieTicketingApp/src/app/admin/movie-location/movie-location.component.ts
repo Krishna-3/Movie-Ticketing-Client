@@ -6,6 +6,7 @@ import { AdminLocationService } from '../services/admin-location.service';
 import { Router } from '@angular/router';
 import { AdminMovieService } from '../services/admin-movie.service';
 import { City, MovieLocationId, MovieLocationModel, MovieModel } from '../interfaces/adminInterfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-movie-location',
@@ -30,7 +31,8 @@ export class MovieLocationComponent implements OnInit, OnDestroy {
 		private adminMovieLocationService: AdminMovieLocationService,
 		private adminLocationService: AdminLocationService,
 		private adminMovieService: AdminMovieService,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
 		this.movies$ = this.adminMovieService.getMovies() as Observable<MovieModel[]>;
@@ -49,11 +51,17 @@ export class MovieLocationComponent implements OnInit, OnDestroy {
 			movieId: this.movieLocationForm.get('movieId')?.value
 		}
 
-		this.subscription1 = this.adminMovieLocationService.createMovieLocation(movieLocation).subscribe(data => this.reload());
+		this.subscription1 = this.adminMovieLocationService.createMovieLocation(movieLocation).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	deleteMovieLocation(mlId: number) {
-		this.subscription2 = this.adminMovieLocationService.deleteMovieLocation(mlId).subscribe(data => this.reload());
+		this.subscription2 = this.adminMovieLocationService.deleteMovieLocation(mlId).subscribe({
+			next: data => this.reload(),
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	reload() {

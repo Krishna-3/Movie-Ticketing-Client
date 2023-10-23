@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Passwords } from '../interfaces/user';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-profile',
@@ -28,7 +29,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		private jwtService: JwtService,
 		private localStorageService: LocalStorageService,
 		private fb: FormBuilder,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
 		this.usernameForm = this.fb.group({
@@ -64,7 +66,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		const userId = parseInt(this.jwtService.getId(this.localStorageService.get('accessToken') as string) as string);
 		const username = this.usernameForm.get('username')?.value;
 
-		this.subscription1 = this.userService.changeUsername(userId, username).subscribe();
+		this.subscription1 = this.userService.changeUsername(userId, username).subscribe({
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	changePassword() {
@@ -76,7 +80,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 			newPassword: newPassword
 		}
 
-		this.subscription2 = this.userService.changePassword(userId, passwords).subscribe();
+		this.subscription2 = this.userService.changePassword(userId, passwords).subscribe({
+			error: err => this.snackbar.open('error occured', 'ok')
+		});
 	}
 
 	deleteUser() {
@@ -87,7 +93,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 				this.localStorageService.remove('accessToken');
 				this.localStorageService.remove('refreshToken');
 				this.router.navigate(['/signup']);
-			}
+			},
+			error: err => this.snackbar.open('error occured', 'ok')
 		});
 	}
 

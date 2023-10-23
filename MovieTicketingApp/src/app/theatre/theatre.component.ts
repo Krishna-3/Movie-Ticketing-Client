@@ -7,6 +7,7 @@ import { TicketService } from '../services/ticket.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { JwtService } from '../services/jwt.service';
 import { LocalStorageService } from '../services/local-storage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-theatre',
@@ -37,7 +38,8 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		private fb: FormBuilder,
 		private jwtService: JwtService,
 		private localStorageService: LocalStorageService,
-		private router: Router) { }
+		private router: Router,
+		private snackbar: MatSnackBar) { }
 
 	ngOnInit(): void {
 		this.seats$ = this.route.params.pipe(
@@ -55,7 +57,7 @@ export class TheatreComponent implements OnInit, OnDestroy {
 					this.seatCount.push(i + 1)
 				}
 			},
-			error: err => console.log(err)
+			error: err => this.snackbar.open('error occured', 'ok')
 		});
 
 		this.seatForm = this.fb.group({
@@ -85,7 +87,7 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 		this.subscription2 = this.ticketService.bookTicket(this.ticketService.ticket, this.bookedSeats).subscribe({
 			next: data => this.router.navigate(['/ticket']),
-			error: err => console.log(err)
+			error: err => this.snackbar.open('error occured', 'ok')
 		});
 	}
 
