@@ -18,7 +18,7 @@ export class TicketComponent implements OnInit, OnDestroy {
 
 	tickets!: TicketResponse[];
 
-	err!: string
+	err!: number
 
 	constructor(private ticketService: TicketService,
 		private localStorageService: LocalStorageService,
@@ -27,7 +27,7 @@ export class TicketComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.subscription1 = this.ticketService.getTickets().subscribe({
 			next: data => this.tickets = this.parseService.parseTickets(this.localStorageService.get('language') as string, data),
-			error: err => this.err = err.title
+			error: err => this.err = err.status
 		})
 	}
 

@@ -31,14 +31,17 @@
             </mat-card-content>
         </div>
 
-        <mat-card-content>
-            <img class="movie-" src="data:image/jpg;base64,{{ticket.movieTheatre.movie.photo}}" />
+        <mat-card-content class="movie-image">
+            <img *ngIf="ticket.movieTheatre.movie.photo" class="rounded movie-image"
+                src="data:image/jpg;base64,{{ticket.movieTheatre.movie.photo}}" />
+            <img *ngIf="ticket.movieTheatre.movie.photo===null" class="rounded movie-image"
+                src="../../assets/movie.png" />
         </mat-card-content>
 
     </mat-card>
 </div>
 
-<div *ngIf="err!==null" class="d-flex justify-content-center nav nav-underline">
+<div *ngIf="err===404" class="d-flex justify-content-center nav nav-underline">
     <a class="nav-link" routerLink="/">
         <span class="mat-h2">No tickets, book now!</span>
     </a>
