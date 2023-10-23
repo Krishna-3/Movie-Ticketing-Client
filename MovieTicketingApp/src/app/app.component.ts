@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MovieService } from './services/movie.service';
@@ -53,6 +53,25 @@ export class AppComponent implements OnInit {
 		this.localStorageService.remove('timeId');
 		this.localStorageService.remove('date');
 		this.localStorageService.remove('language');
+	}
+
+	isLoggedin() {
+		const token = this.localStorageService.get('accessToken') as string;
+		if (token === null)
+			return false
+
+		const isExpired = this.jwtService.isTokenExpired(token);
+
+		return isExpired ? false : true;
+	}
+
+	isAdmin() {
+		const token = this.localStorageService.get('accessToken') as string;
+		if (token === null)
+			return false
+
+		const isAdmin = this.jwtService.getRole(token);
+		return isAdmin === 'admin' ? true : false;
 	}
 
 	ngOnDestroy(): void {
