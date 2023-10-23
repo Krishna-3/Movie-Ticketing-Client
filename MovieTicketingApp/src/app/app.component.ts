@@ -42,17 +42,17 @@ export class AppComponent implements OnInit {
 	}
 
 	logout() {
-		const userId: string = this.jwtService.getId(this.localStorageService.get('accessToken') as string) as string;
+		const refreshToken: string = this.localStorageService.get('refreshToken') as string
 
-		if (userId.length === 0)
-			return
+		this.subscription2 = this.userService.logout(refreshToken).subscribe(data => {
+			this.localStorageService.remove('accessToken');
+			this.localStorageService.remove('refreshToken');
+			this.localStorageService.remove('timeId');
+			this.localStorageService.remove('date');
+			this.localStorageService.remove('language');
+			this.router.navigate(['/login'])
+		});
 
-		this.subscription2 = this.userService.logout(userId).subscribe(data => this.router.navigate(['/login']));
-		this.localStorageService.remove('accessToken');
-		this.localStorageService.remove('refreshToken');
-		this.localStorageService.remove('timeId');
-		this.localStorageService.remove('date');
-		this.localStorageService.remove('language');
 	}
 
 	isLoggedin() {
