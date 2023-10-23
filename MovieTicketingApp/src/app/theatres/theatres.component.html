@@ -84,7 +84,8 @@
 
         <div class="movie-photo mt-5">
 
-            <img class="rounded movie-photo" src="data:image/jpg;base64,{{movie.photo}}" alt="" />
+            <img *ngIf="movie.photo!==''" class="rounded movie-photo" src="data:image/jpg;base64,{{movie.photo}}" />
+            <img *ngIf="movie.photo===''" class="rounded movie-photo" src="../../assets/movie.png" />
 
         </div>
 
