@@ -35,6 +35,9 @@ export class AppComponent implements OnInit {
 		this.languageForm = this.fb.group({
 			preferredLanguage: new FormControl('')
 		});
+
+		if (navigator.language[0] === 'e' || navigator.language[0] === 't' || navigator.language[0] === 'h')
+			this.movieService.setLanguage(navigator.language.slice(0, 1))
 	}
 
 	setLanguage() {
