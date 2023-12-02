@@ -7,6 +7,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { UserService } from './services/user.service';
 import { JwtService } from './services/jwt.service';
 import { LoadingService } from './services/loading.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
 	selector: 'app-root',
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
 		private localStorageService: LocalStorageService,
 		private userService: UserService,
 		private jwtService: JwtService,
-		public loader: LoadingService) { }
+		public loader: LoadingService,
+		public snackbar: MatSnackBar) { }
 
 	loading$ = this.loader.loading$;
 
@@ -62,6 +64,7 @@ export class AppComponent implements OnInit {
 			this.localStorageService.remove('date');
 			this.localStorageService.remove('language');
 			this.router.navigate(['/login'])
+			return this.snackbar.open('successfully logged out', 'ok')
 		});
 
 	}
