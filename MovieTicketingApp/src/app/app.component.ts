@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from './services/local-storage.service';
 import { UserService } from './services/user.service';
 import { JwtService } from './services/jwt.service';
+import { LoadingService } from './services/loading.service';
 
 @Component({
 	selector: 'app-root',
@@ -25,7 +26,10 @@ export class AppComponent implements OnInit {
 		private router: Router,
 		private localStorageService: LocalStorageService,
 		private userService: UserService,
-		private jwtService: JwtService) { }
+		private jwtService: JwtService,
+		public loader: LoadingService) { }
+
+	loading$ = this.loader.loading$;
 
 	ngOnInit(): void {
 		this.languageForm = this.fb.group({

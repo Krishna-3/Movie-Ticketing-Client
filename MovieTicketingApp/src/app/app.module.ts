@@ -24,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
 	declarations: [
@@ -50,7 +51,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 		MatButtonModule,
 		MatIconModule,
 		MatDividerModule,
-		MatSnackBarModule
+		MatSnackBarModule,
+		MatProgressSpinnerModule
 	],
 	providers: [
 		{

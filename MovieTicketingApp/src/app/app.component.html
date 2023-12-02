@@ -64,4 +64,6 @@
     </div>
 </nav>
 
+<mat-progress-spinner [mode]="'indeterminate'" *ngIf="loading$ | async"></mat-progress-spinner>
+
 <router-outlet></router-outlet>
