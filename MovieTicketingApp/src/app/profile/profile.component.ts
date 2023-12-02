@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.usernameForm = this.fb.group({
-			username: new FormControl('', {
+			username: new FormControl(this.jwtService.getUser(this.localStorageService.get('accessToken') as string), {
 				validators: [
 					Validators.required,
 					Validators.pattern(/^[A-Za-z][A-Za-z_0-9]{7,30}$/m),
@@ -67,6 +67,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		const username = this.usernameForm.get('username')?.value;
 
 		this.subscription1 = this.userService.changeUsername(userId, username).subscribe({
+			next: data => {
+				return this.snackbar.open('username changed to ' + username, 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -87,6 +90,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
 		}
 
 		this.subscription2 = this.userService.changePassword(userId, passwords).subscribe({
+			next: data => {
+				return this.snackbar.open('password changed', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
