@@ -97,7 +97,10 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		const locationId = this.theatreForm.get('locationId')?.value;
 
 		this.subscription1 = this.adminTheatreService.createTheatre(theatreName, locationId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('theatre created', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -117,7 +120,10 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		const theatreId = this.theatreNameForm.get('theatreId')?.value;
 
 		this.subscription2 = this.adminTheatreService.updateTheatreName(theatreName, theatreId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('theatre name updated', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -133,7 +139,10 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		const theatreId = this.theatreLocationForm.get('theatreId')?.value;
 
 		this.subscription3 = this.adminTheatreService.updateTheatreLocation(locationId, theatreId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('theatre location updated', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -146,7 +155,10 @@ export class TheatreComponent implements OnInit, OnDestroy {
 
 	deleteTheatre(theatreId: number) {
 		this.subscription4 = this.adminTheatreService.deleteTheatre(theatreId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('theatre deleted', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')

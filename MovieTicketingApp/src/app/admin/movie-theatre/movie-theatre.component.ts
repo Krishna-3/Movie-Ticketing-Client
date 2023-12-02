@@ -120,7 +120,10 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 
 		this.subscription5 = this.adminMovieTheatreService.createMovieTheatre(movieTheatreId).subscribe(
 			{
-				next: data => this.reload(),
+				next: data => {
+					this.reload();
+					return this.snackbar.open('movie-theatre created', 'ok')
+				},
 				error: err => {
 					if ('message' in err.error)
 						return this.snackbar.open(err.error.message[0], 'ok')
@@ -134,7 +137,10 @@ export class MovieTheatreComponent implements OnInit, OnDestroy {
 	deleteMovieTheatre(mtId: number) {
 		this.subscription6 = this.adminMovieTheatreService.deleteMovieTheatre(mtId).subscribe(
 			{
-				next: data => this.reload(),
+				next: data => {
+					this.reload();
+					return this.snackbar.open('movie-theatre deleted', 'ok')
+				},
 				error: err => {
 					if ('message' in err.error)
 						return this.snackbar.open(err.error.message[0], 'ok')

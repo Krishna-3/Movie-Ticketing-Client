@@ -52,7 +52,10 @@ export class MovieLocationComponent implements OnInit, OnDestroy {
 		}
 
 		this.subscription1 = this.adminMovieLocationService.createMovieLocation(movieLocation).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie-location created', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -65,7 +68,10 @@ export class MovieLocationComponent implements OnInit, OnDestroy {
 
 	deleteMovieLocation(mlId: number) {
 		this.subscription2 = this.adminMovieLocationService.deleteMovieLocation(mlId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie-location deleted', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')

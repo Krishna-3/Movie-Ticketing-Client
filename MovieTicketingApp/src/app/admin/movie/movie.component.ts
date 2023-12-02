@@ -139,7 +139,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 		};
 
 		this.subscription1 = this.adminMovieService.createMovie(movie).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie created', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -162,7 +165,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 			return
 
 		this.subscription2 = this.adminMovieService.updateMovieTitle(movie, movieId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie title updated', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -182,7 +188,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 		const movieId = this.movieDescriptionForm.get('movieId')?.value;
 
 		this.subscription3 = this.adminMovieService.updateMovieDescription(movie, movieId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie description updated', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -202,7 +211,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 		const movieId = this.movieLanguageForm.get('movieId')?.value;
 
 		this.subscription4 = this.adminMovieService.updateMovieLanguage(movie, movieId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie language updated', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -218,7 +230,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 		const movieId = this.movieRatingForm.get('movieId')?.value;
 
 		this.subscription5 = this.adminMovieService.updateMovieRating(rating, movieId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie rating updated', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -235,7 +250,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 		const movieId = this.moviePhotoForm.get('movieId')?.value;
 
 		this.subscription6 = this.adminMovieService.uploadPhoto(photo, movieId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie photo updated', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -248,7 +266,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 
 	deleteMovie(movieId: number) {
 		this.subscription7 = this.adminMovieService.deleteMovie(movieId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie deleted', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
@@ -261,7 +282,10 @@ export class MovieComponent implements OnInit, OnDestroy {
 
 	deletePhoto(movieId: number) {
 		this.subscription9 = this.adminMovieService.deletePhoto(movieId).subscribe({
-			next: data => this.reload(),
+			next: data => {
+				this.reload();
+				return this.snackbar.open('movie photo deleted', 'ok')
+			},
 			error: err => {
 				if ('message' in err.error)
 					return this.snackbar.open(err.error.message[0], 'ok')
