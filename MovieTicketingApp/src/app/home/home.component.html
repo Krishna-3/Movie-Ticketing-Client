@@ -9,6 +9,9 @@
 
 </div>
 
+<h2 class="d-flex justify-content-center" *ngIf="this.locationForm.get('selectedLocation')?.value===''">select location
+    to get movies</h2>
+
 <main class="d-flex flex-wrap justify-content-evenly mx-5">
 
     <div class="card movie my-5" *ngFor="let movie of movies">
