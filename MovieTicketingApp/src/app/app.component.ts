@@ -37,7 +37,11 @@ export class AppComponent implements OnInit {
 		});
 
 		if (navigator.language[0] === 'e' || navigator.language[0] === 't' || navigator.language[0] === 'h')
-			this.movieService.setLanguage(navigator.language.slice(0, 1))
+			this.movieService.setLanguage(navigator.language.slice(0, 2)).subscribe(data => {
+				const present = this.router.url;
+				this.router.navigate(['/signup']).then(s => this.router.navigateByUrl(present));
+				this.localStorageService.set('language', this.languageForm.get('preferredLanguage')?.value)
+			});
 	}
 
 	setLanguage() {
