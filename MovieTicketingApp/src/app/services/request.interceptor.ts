@@ -53,19 +53,7 @@ export class RequestInterceptor implements HttpInterceptor {
 						const refresh = this.localStorageService.get('refreshToken');
 
 						if (refresh !== null) {
-							return this.jwtService.getNewRefresh(refresh).pipe(
-								switchMap((data) => {
-
-									const newReq = request.clone({
-										url: request.url,
-										setHeaders: {
-											Authorization: `Bearer ${data.accessToken}`
-										}
-									});
-
-									return next.handle(newReq)
-								})
-							)
+							return this.jwtService.getNewRefresh(refresh);
 						}
 					}
 				}
