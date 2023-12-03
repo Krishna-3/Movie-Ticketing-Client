@@ -107,6 +107,41 @@ export class TheatreComponent implements OnInit, OnDestroy {
 		this.requiredSeats = seats;
 	}
 
+	seatSelect(seatName: string, seat: Seat) {
+		const seats = this.seatForm.getRawValue()
+		const seatCount = parseInt(seatName.slice(4, 5))
+
+		for (let i = 1; i <= this.requiredSeats; i++) {
+			if (seats['seat' + i] !== '')
+				return
+		}
+
+		this.seatForm.controls[seatName].setValue(seat.id);
+		const radio = document.getElementById('seat' + this.requiredSeats + seat.id.toString()) as HTMLInputElement
+		radio.checked = true;
+
+		let j = (seatCount + 1) % (this.requiredSeats + 1) === 0 ? 1 : (seatCount + 1) % (this.requiredSeats + 1);
+		const seatNumber = parseInt(seat.seatNumber.slice(-1));
+		const seatIndex = this.seats.indexOf(seat);
+		const seatRow = seat.seatNumber.slice(0, 1);
+
+		for (let i = 1; i < this.requiredSeats; i++, j = (j + 1) % (this.requiredSeats + 1) === 0 ? 1 : (j + 1) % (this.requiredSeats + 1)) {
+
+			if (seatNumber === 0)
+				break
+
+			const nextSeat = this.seats[seatIndex + i];
+			const nextSeatCondition = seatNumber < (seatNumber + i) % 10 ? true : ((seatNumber + i) % 10 === 0 ? true : false)
+			const seatRowCondition = seatRow === nextSeat.seatNumber.slice(0, 1);
+
+			if (nextSeatCondition && !nextSeat.booked && seatRowCondition) {
+				this.seatForm.controls['seat' + j].setValue(nextSeat.id);
+				const radio = document.getElementById('seat' + this.requiredSeats + nextSeat.id.toString()) as HTMLInputElement
+				radio.checked = true;
+			}
+		}
+	}
+
 	ngOnDestroy(): void {
 		if (this.subscription1) {
 			this.subscription1.unsubscribe();

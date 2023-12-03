@@ -58,8 +58,7 @@
                 <label class="seat-radio" for="seat1{{seat.id}}">
 
                     <input type="radio" id="seat1{{seat.id}}" formControlName="seat1" value="{{seat.id}}"
-                        appDisableControl [condition]="seat.booked">
-
+                        appDisableControl [condition]="seat.booked" (click)="seatSelect('seat1',seat)">
                     <span>
 
                         <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -96,8 +95,7 @@
                 <label class="seat-radio" for="seat1{{seat.id}}">
 
                     <input type="radio" id="seat1{{seat.id}}" formControlName="seat1" value="{{seat.id}}"
-                        appDisableControl [condition]="seat.booked">
-
+                        appDisableControl [condition]="seat.booked" (click)="seatSelect('seat1',seat)">
                     <span>
 
                         <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -134,8 +132,7 @@
                 <label class="seat-radio" for="seat1{{seat.id}}">
 
                     <input type="radio" id="seat1{{seat.id}}" formControlName="seat1" value="{{seat.id}}"
-                        appDisableControl [condition]="seat.booked">
-
+                        appDisableControl [condition]="seat.booked" (click)="seatSelect('seat1',seat)">
                     <span>
 
                         <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -177,7 +174,8 @@
 
                     <label class="seat-radio" for="seat2{{seats[i-2].id}}">
                         <input type="radio" id="seat2{{seats[i-2].id}}" formControlName="seat1"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat1',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -199,7 +197,8 @@
 
                     <label class="seat-radio" for="seat2{{seats[i-1].id}}">
                         <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}"
-                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat2',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -238,7 +237,8 @@
 
                     <label class="seat-radio" for="seat2{{seats[i-2].id}}">
                         <input type="radio" id="seat2{{seats[i-2].id}}" formControlName="seat1"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat1',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -260,7 +260,8 @@
 
                     <label class="seat-radio" for="seat2{{seats[i-1].id}}">
                         <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}"
-                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat2',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -299,7 +300,8 @@
 
                     <label class="seat-radio" for="seat2{{seats[i-2].id}}">
                         <input type="radio" id="seat2{{seats[i-2].id}}" formControlName="seat1"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat1',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -321,7 +323,8 @@
 
                     <label class="seat-radio" for="seat2{{seats[i-1].id}}">
                         <input type="radio" formControlName="seat2" value="{{seats[i-1].id}}"
-                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            id="seat2{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat2',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -364,7 +367,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-3].id}}">
                         <input type="radio" id="seat3{{seats[i-3].id}}" formControlName="seat1"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat1',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -394,7 +398,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-2].id}}">
                         <input type="radio" id="seat3{{seats[i-2].id}}" formControlName="seat2"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat2',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -424,7 +429,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-1].id}}">
                         <input type="radio" id="seat3{{seats[i-1].id}}" formControlName="seat3"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat3',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -466,7 +472,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-3].id}}">
                         <input type="radio" id="seat3{{seats[i-3].id}}" formControlName="seat1"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat1',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -496,7 +503,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-2].id}}">
                         <input type="radio" id="seat3{{seats[i-2].id}}" formControlName="seat2"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat2',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -526,7 +534,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-1].id}}">
                         <input type="radio" id="seat3{{seats[i-1].id}}" formControlName="seat3"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat3',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -556,7 +565,7 @@
 
             <label class="seat-radio" for="seat3{{seats[159].id}}">
                 <input type="radio" id="seat3{{seats[159].id}}" formControlName="seat1" value="{{seats[159].id}}"
-                    appDisableControl [condition]="seats[159].booked">
+                    appDisableControl [condition]="seats[159].booked" (click)="seatSelect('seat1',seats[159])">
                 <span>
 
                     <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -585,7 +594,7 @@
 
             <label class="seat-radio" for="seat3{{seats[160].id}}">
                 <input type="radio" id="seat3{{seats[160].id}}" formControlName="seat2" value="{{seats[160].id}}"
-                    appDisableControl [condition]="seats[160].booked">
+                    appDisableControl [condition]="seats[160].booked" (click)="seatSelect('seat2',seats[160])">
                 <span>
 
                     <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -607,7 +616,7 @@
 
             <label class="seat-radio" for="seat3{{seats[161].id}}">
                 <input type="radio" id="seat3{{seats[161].id}}" formControlName="seat3" value="{{seats[161].id}}"
-                    appDisableControl [condition]="seats[161].booked">
+                    appDisableControl [condition]="seats[161].booked" (click)="seatSelect('seat3',seats[161])">
                 <span>
 
                     <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -632,7 +641,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-3].id}}">
                         <input type="radio" id="seat3{{seats[i-3].id}}" formControlName="seat1"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat1',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -658,7 +668,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-2].id}}">
                         <input type="radio" id="seat3{{seats[i-2].id}}" formControlName="seat2"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat2',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -684,7 +695,8 @@
 
                     <label class="seat-radio" for="seat3{{seats[i-1].id}}">
                         <input type="radio" id="seat3{{seats[i-1].id}}" formControlName="seat3"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat3',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -730,7 +742,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-4].id}}">
                         <input type="radio" id="seat4{{seats[i-4].id}}" formControlName="seat1"
-                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked"
+                            (click)="seatSelect('seat1',seats[i-4])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -756,7 +769,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-3].id}}">
                         <input type="radio" id="seat4{{seats[i-3].id}}" formControlName="seat2"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat2',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -781,7 +795,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-2].id}}">
                         <input type="radio" id="seat4{{seats[i-2].id}}" formControlName="seat3"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat3',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -807,7 +822,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-1].id}}">
                         <input type="radio" id="seat4{{seats[i-1].id}}" formControlName="seat4"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat4',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -848,7 +864,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-4].id}}">
                         <input type="radio" id="seat4{{seats[i-4].id}}" formControlName="seat1"
-                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked"
+                            (click)="seatSelect('seat1',seats[i-4])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -874,7 +891,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-3].id}}">
                         <input type="radio" id="seat4{{seats[i-3].id}}" formControlName="seat2"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat2',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -899,7 +917,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-2].id}}">
                         <input type="radio" id="seat4{{seats[i-2].id}}" formControlName="seat3"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat3',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -925,7 +944,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-1].id}}">
                         <input type="radio" id="seat4{{seats[i-1].id}}" formControlName="seat4"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat4',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -966,7 +986,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-4].id}}">
                         <input type="radio" id="seat4{{seats[i-4].id}}" formControlName="seat1"
-                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked"
+                            (click)="seatSelect('seat1',seats[i-4])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -992,7 +1013,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-3].id}}">
                         <input type="radio" id="seat4{{seats[i-3].id}}" formControlName="seat2"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat2',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1017,7 +1039,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-2].id}}">
                         <input type="radio" id="seat4{{seats[i-2].id}}" formControlName="seat3"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat3',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1043,7 +1066,8 @@
 
                     <label class="seat-radio" for="seat4{{seats[i-1].id}}">
                         <input type="radio" id="seat4{{seats[i-1].id}}" formControlName="seat4"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat4',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1087,7 +1111,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-5].id}}">
                         <input type="radio" id="seat5{{seats[i-5].id}}" formControlName="seat1"
-                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked">
+                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked"
+                            (click)="seatSelect('seat1',seats[i-5])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1113,7 +1138,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-4].id}}">
                         <input type="radio" id="seat5{{seats[i-4].id}}" formControlName="seat2"
-                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked"
+                            (click)="seatSelect('seat2',seats[i-4])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1139,7 +1165,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-3].id}}">
                         <input type="radio" id="seat5{{seats[i-3].id}}" formControlName="seat3"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat3',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1165,7 +1192,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-2].id}}">
                         <input type="radio" id="seat5{{seats[i-2].id}}" formControlName="seat4"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat4',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1191,7 +1219,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-1].id}}">
                         <input type="radio" id="seat5{{seats[i-1].id}}" formControlName="seat5"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat5',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1231,7 +1260,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-5].id}}">
                         <input type="radio" id="seat5{{seats[i-5].id}}" formControlName="seat1"
-                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked">
+                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked"
+                            (click)="seatSelect('seat1',seats[i-5])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1257,7 +1287,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-4].id}}">
                         <input type="radio" id="seat5{{seats[i-4].id}}" formControlName="seat2"
-                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked"
+                            (click)="seatSelect('seat2',seats[i-4])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1283,7 +1314,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-3].id}}">
                         <input type="radio" id="seat5{{seats[i-3].id}}" formControlName="seat3"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat3',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1309,7 +1341,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-2].id}}">
                         <input type="radio" id="seat5{{seats[i-2].id}}" formControlName="seat4"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat4',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1335,7 +1368,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-1].id}}">
                         <input type="radio" id="seat5{{seats[i-1].id}}" formControlName="seat5"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat5',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1375,7 +1409,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-5].id}}">
                         <input type="radio" id="seat5{{seats[i-5].id}}" formControlName="seat1"
-                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked">
+                            value="{{seats[i-5].id}}" appDisableControl [condition]="seats[i-5].booked"
+                            (click)="seatSelect('seat1',seats[i-5])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1401,7 +1436,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-4].id}}">
                         <input type="radio" id="seat5{{seats[i-4].id}}" formControlName="seat2"
-                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked">
+                            value="{{seats[i-4].id}}" appDisableControl [condition]="seats[i-4].booked"
+                            (click)="seatSelect('seat2',seats[i-4])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1427,7 +1463,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-3].id}}">
                         <input type="radio" id="seat5{{seats[i-3].id}}" formControlName="seat3"
-                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked">
+                            value="{{seats[i-3].id}}" appDisableControl [condition]="seats[i-3].booked"
+                            (click)="seatSelect('seat3',seats[i-3])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1453,7 +1490,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-2].id}}">
                         <input type="radio" id="seat5{{seats[i-2].id}}" formControlName="seat4"
-                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked">
+                            value="{{seats[i-2].id}}" appDisableControl [condition]="seats[i-2].booked"
+                            (click)="seatSelect('seat4',seats[i-2])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
@@ -1479,7 +1517,8 @@
 
                     <label class="seat-radio" for="seat5{{seats[i-1].id}}">
                         <input type="radio" id="seat5{{seats[i-1].id}}" formControlName="seat5"
-                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked">
+                            value="{{seats[i-1].id}}" appDisableControl [condition]="seats[i-1].booked"
+                            (click)="seatSelect('seat5',seats[i-1])">
                         <span>
 
                             <svg class="svg" width="30px" height="30px" viewBox="-2.4 -2.4 28.80 28.80">
